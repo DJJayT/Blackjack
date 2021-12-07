@@ -2,8 +2,6 @@
 
 namespace controller;
 
-use views\gridBeginning;
-
 class designController extends baseController
 {
     /**
@@ -11,7 +9,7 @@ class designController extends baseController
      */
     function createAction()
     {
-        $this->renderViewAction("bodyhead.html");
+        $this->renderViewAction("indexhead.html");
     }
 
     /**

@@ -4,7 +4,7 @@ require_once("../private/models/autoloader.php");
 $urlParams = explode('/', $_SERVER['REQUEST_URI']);
 
 $controllerCreate = "\controller\design";
-$function = "default";
+$function = "create";
 
 if (isset($urlParams[1])) {
     session_start();
@@ -22,7 +22,7 @@ if (isset($urlParams[1])) {
         $controller->$function();
     } else {
         $controller = new \controller\designController();
-        $controller->errorAction();
+        $controller->createAction();
     }
 } else {
     $controllerCreate = $controllerCreate . "Controller";
