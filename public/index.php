@@ -1,32 +1,32 @@
 <?php
 require_once("../private/models/autoloader.php");
 
+session_start();
+
 $urlParams = explode('/', $_SERVER['REQUEST_URI']);
 
 $controllerCreate = "\controller\design";
 $function = "create";
 
-if (isset($urlParams[1])) {
-    session_start();
-
-    if (isset($urlParams[2])) {
-        $controllerCreate = "\controller\\" . $urlParams[1];
-        $function = $urlParams[2];
-    }
-
-    $controllerCreate = $controllerCreate . "Controller";
-    $function = $function . "Action";
-
-    if(class_exists($controllerCreate) && function_exists($function)) {
+if ($urlParams[1] != null) {
+    if (class_exists("controller\\" . $urlParams[1]."Controller")) {
+        $controller = $urlParams[1];
+        $controllerCreate = "controller\\" . $controller."Controller";
         $controller = new $controllerCreate();
-        $controller->$function();
+        if (isset($urlParams[2]) && method_exists($controller, $urlParams[2]."Action")) {
+            $function = $urlParams[2]."Action";
+            $controller->$function();
+        } else {
+            $design = new \controller\designController();
+            $design->errorAction();
+        }
     } else {
-        $controller = new \controller\designController();
-        $controller->createAction();
+        $design = new \controller\designController();
+        $design->errorAction();
     }
 } else {
-    $controllerCreate = $controllerCreate . "Controller";
-    $function = $function . "Action";
+    $controllerCreate = $controllerCreate."Controller";
+    $function = $function."Action";
     $controller = new $controllerCreate();
     $controller->$function();
 }
