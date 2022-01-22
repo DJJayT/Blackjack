@@ -9,7 +9,9 @@ class designController extends baseController
      */
     function createAction()
     {
-        $this->renderViewAction("indexhead.html");
+        $this->renderViewAction("general/generalhead.html");
+        $this->renderViewAction("index/indexhead.html");
+        $this->renderViewAction("index/indexbody.html");
     }
 
     /**
@@ -18,5 +20,15 @@ class designController extends baseController
     function errorAction()
     {
         $this->renderViewAction("Bitte geb keinen Blödsinn ein");
+    }
+
+    function singleplayerAction() {
+        $this->renderViewAction("general/generalhead.html");
+        $this->renderViewAction("singleplayer/singleplayerhead.html");
+        //Hier Code schreiben
+    }
+
+    function multiplayerAction() {
+        //Hier Code schreiben
     }
 }
