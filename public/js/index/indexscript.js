@@ -8,7 +8,7 @@ class indexscript {
         let self = this;
         $(document).ready(function () {
             $("#singleplayer").on("click", function () {
-                window.location.href='/singleplayer';
+                window.location.href='/singleplayer/';
             });
             $("#multiplayer").on("click", function() {
                $(this).text("Noch in Arbeit!");
