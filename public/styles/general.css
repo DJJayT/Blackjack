@@ -12,12 +12,12 @@
 button {
     display: inline-block;
     border: none;
-    padding: 3rem 6rem;
+    padding: 1rem 2rem;
     margin-right: 0;
     text-decoration: none;
     background: #757575;
     font-family: sans-serif;
-    font-size: 3rem;
+    font-size: 1rem;
     cursor: pointer;
     text-align: center;
     transition: all 200ms ease-in-out,
