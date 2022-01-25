@@ -1,0 +1,3 @@
+class dealer extends player {
+
+}
