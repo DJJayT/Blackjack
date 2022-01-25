@@ -5,3 +5,23 @@
 #gamefield a {
     background-color: green;
 }
+
+#hit {
+    background-color: #00E600;
+}
+
+#stand {
+    background-color: #ED0520;
+}
+
+#split {
+    background-color: #0025E6;
+}
+
+#double {
+    background-color: #EFD800;
+}
+
+#chips {
+
+}
