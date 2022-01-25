@@ -19,12 +19,14 @@ class designController extends baseController
      */
     function errorAction()
     {
+        $this->renderViewAction("general/generalhead.html");
         $this->renderViewAction("Bitte geb keinen Blödsinn ein");
     }
 
     function singleplayerAction() {
         $this->renderViewAction("general/generalhead.html");
         $this->renderViewAction("singleplayer/singleplayerhead.html");
+        $this->renderViewAction("singleplayer/singleplayerbody.html");
         //Hier Code schreiben
     }
 
