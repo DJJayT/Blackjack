@@ -1,4 +1,8 @@
-class ajax {
+/*class ajax {
+
+Abänderungsbedarf wenn benötigt
+
+ */
 
     /***
      * Ajax-call
@@ -8,7 +12,7 @@ class ajax {
      * @param callback
      * @param callbackData
      * @param callbackObject
-     */
+
     static call(type, url, data, callback, callbackData, callbackObject) {
         $.ajax({
             type: type,
@@ -19,4 +23,4 @@ class ajax {
             }
         });
     }
-}
+}*/

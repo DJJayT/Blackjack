@@ -13,7 +13,7 @@ class indexscript {
             $("#multiplayer").on("click", function() {
                $(this).text("Noch in Arbeit!");
             });
-        })
+        });
     }
 
     sleep(milliseconds) {
