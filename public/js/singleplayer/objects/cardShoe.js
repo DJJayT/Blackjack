@@ -1,4 +1,4 @@
-class cardshoe {
+class cardShoe {
 
     cards = Array();
 
@@ -10,6 +10,10 @@ class cardshoe {
                 }
             }
         }
-        console.log(this.cards.length);
+    }
+
+    getRandomCard() {
+        let random = Math.floor(Math.random() * 312);
+        return this.cards[random];
     }
 }

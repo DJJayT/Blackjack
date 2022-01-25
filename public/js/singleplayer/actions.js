@@ -3,10 +3,13 @@ class actions {
     gameLogic;
 
     constructor() {
-        this.clickButtons();
+        this.clickButtons(); //Muss zu clickChips gechanged werden
         this.gameLogic = new gameLogic();
     }
 
+    clickChips() {
+
+    }
 
     clickButtons() {
         let self = this;
