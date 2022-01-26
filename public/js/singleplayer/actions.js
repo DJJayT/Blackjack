@@ -3,12 +3,29 @@ class actions {
     gameLogic;
 
     constructor() {
-        this.clickButtons(); //Muss zu clickChips gechanged werden
+        this.backToMenu();
+        this.clickChips(); //Muss zu clickChips gechanged werden
         this.gameLogic = new gameLogic();
     }
 
     clickChips() {
+        let self = this;
+        $(document).ready(function() {
+            $("#bet").on("click", function () {
+                self.bet();
+            });
+            $(".playchip").each(function() {
+                self.chipClicked(this);
+            });
+        });
+    }
 
+    backToMenu() {
+        $(document).ready(function() {
+            $("#backToMenuButton").on("click", function () {
+                window.location.href='../';
+            });
+        });
     }
 
     clickButtons() {
@@ -30,6 +47,7 @@ class actions {
     }
 
     hitButtonClicked() {
+        this.gameLogic.test();
         console.log("Hit");
     }
 
@@ -43,6 +61,18 @@ class actions {
 
     doubleButtonClicked() {
         console.log("Double");
+    }
+
+    bet() {
+        console.log("Yee");
+    }
+
+    chipClicked(chip) {
+        console.log(chip.id);
+    }
+
+    checkChipHasValue(chip) {
+
     }
 
 

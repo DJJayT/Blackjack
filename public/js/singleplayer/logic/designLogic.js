@@ -2,22 +2,26 @@ class designLogic {
 
     color = ["Herz", "Karo", "Kreuz", "Pik"];
 
-    showCard(card) {
-        let symbol;
-        let cardImg;
-        if(card.symbol == 0) {
-            symbol = "A";
-        } else if(card.symbol == 10) {
-            symbol = "J";
-        } else if(card.symbol == 11) {
-            symbol = "Q";
-        } else if(card.symbol == 12) {
-            symbol = "K";
-        } else {
-            symbol = card.symbol + 1;
+    getSymbol(cardSymbol) {
+        switch(cardSymbol) {
+            case 0:
+                return "A";
+            case 10:
+                return "J";
+            case 11:
+                return "Q";
+            case 12:
+                return "K";
+            default:
+                return cardSymbol + 1;
         }
+    }
+
+    showCard(card) {
+        let symbol = this.getSymbol(card.symbol);
+        let cardImg;
         cardImg = symbol + "_" + this.color[card.color] + ".png";
-        $("#test").attr("src", "../../../public/img/" + cardImg); //Fehlerhaft
+        $("#test").attr("src", "../../../public/img/" + cardImg); //Fehlerhaft lokal, nur auf Server
         console.log(cardImg)
     }
 }

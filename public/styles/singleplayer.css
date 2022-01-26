@@ -2,7 +2,7 @@
     background-color: green;
 }
 
-#gamefield a {
+#gamefield * {
     background-color: green;
 }
 
@@ -22,6 +22,24 @@
     background-color: #EFD800;
 }
 
-#chips {
+#bet {
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+}
 
+.chip {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.symbol {
+    font-size: 2rem;
+}
+
+.center {
+    text-align: center;
+    justify-content: center;
 }

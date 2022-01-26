@@ -10,6 +10,9 @@ class gameLogic {
         this.cardShoe = new cardShoe();
         this.player = new player();
         this.dealer = new dealer();
+    }
+
+    test() {
         this.designLogic.showCard(this.cardShoe.getRandomCard());
     }
 
