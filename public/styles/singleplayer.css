@@ -26,7 +26,10 @@
     width: 100px;
     height: 100px;
     background-color: grey;
+    text-align: center;
 }
+
+
 
 .hidden {
     visibility: hidden;
@@ -36,7 +39,7 @@
     width: 75px;
     height: 75px;
     border-radius: 50%;
-    text-align: center;
+    text-align: left;
 }
 
 .symbol {
