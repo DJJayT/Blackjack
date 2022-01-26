@@ -70,13 +70,4 @@ class actions {
     chipClicked(chip) {
         console.log(chip.id);
     }
-
-    checkChipHasValue(chip) {
-
-    }
-
-
-
-
-
 }
