@@ -4,6 +4,7 @@ class card {
     symbol; //Welches Symbol
     gamevalue; //Welchen Wert
     ace = false; //Ob Ass oder nicht
+    played = false;
 
     constructor(color, symbol) {
         this.color = color;

@@ -1,6 +1,8 @@
 class cardShoe {
 
     cards = Array();
+    dealerCard;
+    cardsPlayed = 0;
 
     constructor() {
         for(let i=0; i<6; i++) {
@@ -10,10 +12,25 @@ class cardShoe {
                 }
             }
         }
+        this.dealerCard = Math.floor(Math.random() * (250-208) + 208);
     }
 
     getRandomCard() {
-        let random = Math.floor(Math.random() * 312);
+        let random;
+        do {
+            random = Math.floor(Math.random() * 312);
+        } while(this.cards[random].played === true);
+
+        this.cardsPlayed++;
+        this.cards[random].played = true;
         return this.cards[random];
+    }
+
+    dealerCardPlayed() {
+        this.cards.forEach(function(card) {
+            card.played = false;
+        });
+        this.dealerCard = Math.floor(Math.random() * (250-208) + 208);
+        this.cardsPlayed = 0;
     }
 }

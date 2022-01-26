@@ -1,8 +1,4 @@
-/*class ajax {
-
-Abänderungsbedarf wenn benötigt
-
- */
+class ajax {
 
     /***
      * Ajax-call
@@ -12,15 +8,16 @@ Abänderungsbedarf wenn benötigt
      * @param callback
      * @param callbackData
      * @param callbackObject
+     */
 
     static call(type, url, data, callback, callbackData, callbackObject) {
         $.ajax({
             type: type,
-            url : "/hashiwokakero/" + url,
+            url : url,
             data: data,
             success: function(response) {
                 callback(response, callbackData, callbackObject);
             }
         });
     }
-}*/
+}
