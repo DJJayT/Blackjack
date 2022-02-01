@@ -36,6 +36,7 @@
 }
 
 .chip {
+
     width: 75px;
     height: 75px;
     border-radius: 50%;
@@ -60,6 +61,11 @@
 
 .symbol {
     font-size: 2rem;
+    float: left;
+}
+
+.playchip{
+    float: left;
 }
 
 .center {
