@@ -1,6 +1,6 @@
 class designLogic {
 
-    color = ["Herz", "Karo", "Kreuz", "Pik"];
+    colorNames = ["Herz", "Karo", "Kreuz", "Pik"];
 
     getSymbol(cardSymbol) {
         switch(cardSymbol) {
@@ -20,7 +20,7 @@ class designLogic {
     showCard(card) {
         let symbol = this.getSymbol(card.symbol);
         let cardImg;
-        cardImg = symbol + "_" + this.color[card.color] + ".png";
+        cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
         $("#test").attr("src", "../../../public/img/" + cardImg); //Fehlerhaft lokal, nur auf Server
         console.log(cardImg)
     }

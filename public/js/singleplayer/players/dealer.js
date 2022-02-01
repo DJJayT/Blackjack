@@ -1,3 +1,3 @@
-class dealer extends player {
+class dealer extends person {
 
 }

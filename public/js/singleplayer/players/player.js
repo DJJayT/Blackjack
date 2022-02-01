@@ -1,8 +1,9 @@
-class player {
+class player extends person {
     money = 2000;
     bet = 0;
 
     constructor() {
+        super();
         this.money = 1000;
     }
 

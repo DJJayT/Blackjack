@@ -13,7 +13,10 @@ class gameLogic {
     }
 
     test() {
-        this.designLogic.showCard(this.cardShoe.getRandomCard());
+        let card = this.cardShoe.getRandomCard();
+        this.designLogic.showCard(card);
+        this.player.hit(card);
+        console.log(this.player.cards);
     }
 
     startGame() {
@@ -21,7 +24,6 @@ class gameLogic {
             alert("Du musst zuerst einen Einsatz tätigen!");
             return;
         }
-
 
     }
 
