@@ -1,6 +1,8 @@
 class actions {
 
     gameLogic;
+    currentBetValue = null;
+    currentBetClicked = null;
 
     constructor() {
         this.mainButtonsClicked();
@@ -27,7 +29,9 @@ class actions {
                 self.bet();
             });
             $(".playchip").each(function() {
-                self.chipClicked(this);
+                $(this).on("click", function() {
+                    self.chipClicked(this);
+                });
             });
         });
     }
@@ -68,11 +72,21 @@ class actions {
     }
 
     bet() {
-        console.log("Yee");
+        if(this.currentBetValue !== null) {
+            this.gameLogic.playerBet(this.currentBetValue);
+        }
     }
 
     chipClicked(chip) {
-        console.log(chip.id);
+        $(chip).addClass("clicked");
+        if(this.currentBetClicked !== chip && this.currentBetClicked !== null) {
+            $(this.currentBetClicked).removeClass("clicked");
+        }
+
+        let tempVar = chip.id.split("chip");
+        this.currentBetValue = parseInt(tempVar[1]);
+        this.currentBetClicked = chip;
+        console.log(this.currentBetClicked);
     }
 
     startGame() {

@@ -24,4 +24,12 @@ class designLogic {
         $("#test").attr("src", "../../../public/img/" + cardImg); //Fehlerhaft lokal, nur auf Server
         console.log(cardImg)
     }
+
+    showBet(totalBet) {
+        $("#playerbet").text(totalBet);
+    }
+
+    showMoney(playerMoney) {
+        $("#playermoney").text(playerMoney);
+    }
 }

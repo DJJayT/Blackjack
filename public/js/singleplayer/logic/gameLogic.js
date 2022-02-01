@@ -25,4 +25,10 @@ class gameLogic {
 
     }
 
+    playerBet(betValue) {
+        let betTotal = this.player.addBet(betValue);
+        this.designLogic.showBet(betTotal);
+        this.designLogic.showMoney(this.player.money);
+    }
+
 }

@@ -66,3 +66,7 @@
     text-align: center;
     justify-content: center;
 }
+
+.clicked {
+    background: #424242;
+}
