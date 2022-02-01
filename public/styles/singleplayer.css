@@ -41,17 +41,21 @@
     height: 75px;
     border-radius: 50%;
     text-align: center;
+    background-color: #757575;
+    margin-left: 3px;
+}
+
+.clickable {
     cursor: pointer;
     transition: all 200ms ease-in-out,
     transform 150ms ease;
-    background-color: #757575;
 }
 
-.chip:hover {
-    background: #424242;
+.clickable:hover {
+    background: #424242; /* Funktioniert nicht bei Playerbet */
 }
 
-.chip:active {
+.clickable:active {
     transform: scale(0.95);
 }
 
@@ -76,6 +80,9 @@
 
 .clicked {
     background: #424242;
+}
+.card {
+    margin-left: 5px;
 }
 
 /*.playertext {

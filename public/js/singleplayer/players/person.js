@@ -12,10 +12,10 @@ class person {
 
     getCardValues() {
         let value = 0;
-        let neededAces = 0;
         this.cards.forEach(function(card) {
-
+            value += card.value;
         });
+        return value;
     }
 
 

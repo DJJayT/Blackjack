@@ -1,5 +1,13 @@
 class gameLogic {
 
+    /***
+     * TODO:
+     * - Blackjack Prüfung
+     * - Unter 21 Prüfung
+     * - Ass-Regel Prüfung
+     * - Playerbet-Chip Hover funktioniert nicht
+     */
+
     designLogic;
     cardShoe;
     player;
@@ -16,6 +24,8 @@ class gameLogic {
         let card = this.cardShoe.getRandomCard();
         this.designLogic.showCardPlayer(card);
         this.player.hit(card);
+        let playerValue = this.player.getCardValues();
+        console.log(playerValue);
     }
 
     hitDealer(showCard) {
@@ -42,7 +52,10 @@ class gameLogic {
         this.hitDealer(true);
         this.hitPlayer();
         this.hitDealer(false);
-
+        let dealerValue = this.dealer.getCardValues(true);
+        let playerValue = this.player.getCardValues();
+        console.log(playerValue);
+        console.log(dealerValue);
     }
 
     playerBet(betValue) {
@@ -52,7 +65,7 @@ class gameLogic {
     }
 
     revokeBet() {
-        let betTotal = this.player.revokeBet();
+        this.player.revokeBet();
         this.designLogic.showBet("0");
         this.designLogic.showMoney(this.player.money);
     }

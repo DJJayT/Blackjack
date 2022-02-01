@@ -53,6 +53,7 @@ class designLogic {
         $("#chips").addClass("hidden");
         $("#startGame").addClass("hidden");
         $("#buttons").removeClass("hidden");
+        $("#bet").removeClass("clickable");
 
 
     }
