@@ -39,7 +39,23 @@
     width: 75px;
     height: 75px;
     border-radius: 50%;
-    text-align: left;
+    text-align: center;
+    cursor: pointer;
+    transition: all 200ms ease-in-out,
+    transform 150ms ease;
+    background-color: #757575;
+}
+
+.chip:hover {
+    background: #424242;
+}
+
+.chip:active {
+    transform: scale(0.95);
+}
+
+.chip a {
+    vertical-align: middle;
 }
 
 .symbol {
