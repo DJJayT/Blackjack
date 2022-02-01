@@ -22,7 +22,7 @@ class designLogic {
         let cardImg;
         cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
         $("#test").attr("src", "../../../public/img/" + cardImg); //Fehlerhaft lokal, nur auf Server
-        console.log(cardImg)
+        console.log(cardImg);
     }
 
     showBet(totalBet) {
@@ -31,5 +31,13 @@ class designLogic {
 
     showMoney(playerMoney) {
         $("#playermoney").text(playerMoney);
+    }
+
+    startGame() {
+        $("#chips").addClass("hidden");
+        $("#startGame").addClass("hidden");
+        $("#buttons").removeClass("hidden");
+
+
     }
 }

@@ -33,6 +33,9 @@ class actions {
                     self.chipClicked(this);
                 });
             });
+            $("#back").on("click", function() {
+                self.revokeBet();
+            });
         });
     }
 
@@ -77,6 +80,10 @@ class actions {
         }
     }
 
+    revokeBet() {
+        this.gameLogic.revokeBet();
+    }
+
     chipClicked(chip) {
         $(chip).addClass("clicked");
         if(this.currentBetClicked !== chip && this.currentBetClicked !== null) {
@@ -91,5 +98,8 @@ class actions {
 
     startGame() {
         this.gameLogic.startGame();
+        this.clickChips();
+        this.currentBetValue = null;
+        this.currentBetClicked = null;
     }
 }

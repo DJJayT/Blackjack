@@ -1,11 +1,7 @@
 class player extends person {
     money = 2000;
     bet = 0;
-
-    constructor() {
-        super();
-        this.money = 1000;
-    }
+    betLastRound = 0;
 
     addBet(betValue) {
         if(this.money >= betValue) {
@@ -13,5 +9,18 @@ class player extends person {
             this.money -= betValue;
         }
         return this.bet;
+    }
+
+    revokeBet() {
+        if(this.bet > 0) {
+            this.money += this.bet;
+            this.bet = 0;
+        }
+    }
+
+    newRound() {
+        super.newRound();
+        this.betLastRound = this.bet;
+        this.bet = 0;
     }
 }

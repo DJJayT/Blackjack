@@ -25,11 +25,19 @@ class gameLogic {
             return;
         }
 
+        this.designLogic.startGame(); //Bet-Chip muss noch Clicked etc. entfernt werden
+
     }
 
     playerBet(betValue) {
         let betTotal = this.player.addBet(betValue);
         this.designLogic.showBet(betTotal);
+        this.designLogic.showMoney(this.player.money);
+    }
+
+    revokeBet() {
+        let betTotal = this.player.revokeBet();
+        this.designLogic.showBet("0");
         this.designLogic.showMoney(this.player.money);
     }
 
