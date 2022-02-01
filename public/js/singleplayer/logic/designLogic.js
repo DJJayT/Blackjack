@@ -17,12 +17,28 @@ class designLogic {
         }
     }
 
-    showCard(card) {
+    showCardDealer(card) {
         let symbol = this.getSymbol(card.symbol);
         let cardImg;
         cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
-        $("#test").attr("src", "../../../public/img/" + cardImg); //Fehlerhaft lokal, nur auf Server
-        console.log(cardImg);
+        this.showCard(cardImg, "dealer")
+    }
+
+    showDealerHiddenCard() {
+        $("#dealercards").append("<img class='card' src='../../../public/img/Hintergrund.png' width='50px'>");
+    }
+
+    showCardPlayer(card) {
+        let symbol = this.getSymbol(card.symbol);
+        let cardImg;
+        cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
+        this.showCard(cardImg, "player")
+    }
+
+    showCard(cardImg, person) {
+        person = "#" + person + "cards";
+        $(person).append("<img class='card' src='../../../public/img/" + cardImg + "' width='50px'>");
+        //$("#test").attr("src", "../../../public/img/" + cardImg);
     }
 
     showBet(totalBet) {

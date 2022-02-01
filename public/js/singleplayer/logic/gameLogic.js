@@ -12,11 +12,20 @@ class gameLogic {
         this.dealer = new dealer();
     }
 
-    test() {
+    hitPlayer() {
         let card = this.cardShoe.getRandomCard();
-        this.designLogic.showCard(card);
+        this.designLogic.showCardPlayer(card);
         this.player.hit(card);
-        console.log(this.player.cards);
+    }
+
+    hitDealer(showCard) {
+        let card = this.cardShoe.getRandomCard();
+        if(showCard) {
+            this.designLogic.showCardDealer(card);
+        } else {
+            this.designLogic.showDealerHiddenCard();
+        }
+        this.dealer.hit(card);
     }
 
     startGame() {
@@ -24,8 +33,15 @@ class gameLogic {
             alert("Du musst zuerst einen Einsatz tätigen!");
             return;
         }
-
         this.designLogic.startGame(); //Bet-Chip muss noch Clicked etc. entfernt werden
+        this.dealCards();
+    }
+
+    dealCards() {
+        this.hitPlayer();
+        this.hitDealer(true);
+        this.hitPlayer();
+        this.hitDealer(false);
 
     }
 

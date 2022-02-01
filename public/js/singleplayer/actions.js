@@ -58,8 +58,7 @@ class actions {
     }
 
     hitButtonClicked() {
-        this.gameLogic.test();
-        console.log("Hit");
+        this.gameLogic.hitPlayer();
     }
 
     standButtonClicked() {
@@ -93,12 +92,11 @@ class actions {
         let tempVar = chip.id.split("chip");
         this.currentBetValue = parseInt(tempVar[1]);
         this.currentBetClicked = chip;
-        console.log(this.currentBetClicked);
     }
 
     startGame() {
         this.gameLogic.startGame();
-        this.clickChips();
+        this.clickButtons();
         this.currentBetValue = null;
         this.currentBetClicked = null;
     }
