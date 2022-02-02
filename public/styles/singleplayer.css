@@ -25,7 +25,7 @@
     background-color: #EFD800;
 }
 
-#bet {
+#mainbet {
     width: 75px;
     height: 75px;
     background-color: grey;
@@ -36,14 +36,14 @@
     height: 100px;
 }
 
-#sidebet1{
+#sidebet_pair {
     width: 50px;
     height: 50px;
     background-color: grey;
     text-align: center;
 }
 
-#sidebet2{
+#sidebet_213 {
     width: 50px;
     height: 50px;
     background-color: grey;

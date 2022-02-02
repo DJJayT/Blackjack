@@ -33,7 +33,7 @@ class actions {
             $("#back").on("click", function() {
                 self.revokeBet();
             });
-            $("#bet").on("click", function () {
+            $("#mainbet").on("click", function () {
                 self.bet();
             });
             $("#sidebet_pair").on("click", function () {

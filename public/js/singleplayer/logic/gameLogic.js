@@ -7,7 +7,6 @@ class gameLogic {
      * - Stand Regel einbauen
      * - Double Regel einbauen
      * - Split Regel einbauen
-     * - Sidebet Klick funktioniert teilweise - keine Ahnung warum, mal gehts mal nicht
      */
 
     /***

@@ -42,15 +42,15 @@ class designLogic {
     }
 
     showBet(totalBet) {
-        $("#playerbet").text(totalBet);
+        $("#mainbet_text").text(totalBet);
     }
 
     showSidebet213(totalBet) {
-        $("#sidebet_213").text(totalBet);
+        $("#sidebet_213_text").text(totalBet);
     }
 
     showSidebetPair(totalBet) {
-        $("#sidebet_pair").text(totalBet);
+        $("#sidebet_pair_text").text(totalBet);
     }
 
     showMoney(playerMoney) {
@@ -61,7 +61,7 @@ class designLogic {
         $("#chips").addClass("hidden");
         $("#startGame").addClass("hidden");
         $("#buttons").removeClass("hidden");
-        $("#bet").removeClass("clickable");
+        $("#mainbet").removeClass("clickable");
         $(".sidebet").removeClass("clickable");
     }
 
