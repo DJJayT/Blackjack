@@ -5,7 +5,6 @@ class indexscript {
     }
 
     clickButtons() {
-        let self = this;
         $(document).ready(function () {
             $("#singleplayer").on("click", function () {
                 window.location.href='/singleplayer/';
@@ -15,10 +14,4 @@ class indexscript {
             });
         });
     }
-
-    sleep(milliseconds) {
-        return new Promise(resolve => setTimeout(resolve, milliseconds));
-    }
-
-
 }
