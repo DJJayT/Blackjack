@@ -19,7 +19,6 @@ class gameLogic {
      * TODO Kev:
      * - Evtl Buttons etc. nach Live-Blackjack anordnen
      * - Chip Farbe nach Bet-Size geben
-     * - Spieler Text runtersetzen
      * - Lücke zwischen Dealerkarte und Spielerkarte
      * - Buttons für Hit etc. gleich groß machen
      * - "Zurück zum Menü" runter und centern
