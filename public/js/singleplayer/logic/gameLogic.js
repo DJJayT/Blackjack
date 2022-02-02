@@ -7,7 +7,6 @@ class gameLogic {
      * - Stand Regel einbauen
      * - Double Regel einbauen
      * - Split Regel einbauen
-     * - Playerbet-Chip Hover funktioniert nicht
      * - Sidebet Klick funktioniert teilweise - keine Ahnung warum, mal gehts mal nicht
      */
 
@@ -28,6 +27,7 @@ class gameLogic {
      * - Spieleranzeigen sinnvoll setzen
      * - Buttons evtl besser sortieren
      * - Divs hinzufügen zum Karten Splitten
+     * - Playerbet-Chip Hover funktioniert nicht
      */
 
     designLogic;
