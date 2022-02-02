@@ -25,9 +25,6 @@ class actions {
     clickChips() {
         let self = this;
         $(document).ready(function() {
-            $("#bet").on("click", function () {
-                self.bet();
-            });
             $(".playchip").each(function() {
                 $(this).on("click", function() {
                     self.chipClicked(this);
@@ -35,6 +32,15 @@ class actions {
             });
             $("#back").on("click", function() {
                 self.revokeBet();
+            });
+            $("#bet").on("click", function () {
+                self.bet();
+            });
+            $("#sidebet_pair").on("click", function () {
+                self.sidebetPair();
+            });
+            $("#sidebet_213").on("click", function () {
+                self.sidebet213();
             });
         });
     }
@@ -77,6 +83,21 @@ class actions {
         if(this.currentBetValue !== null) {
             this.gameLogic.playerBet(this.currentBetValue);
         }
+        console.log(this.currentBetValue);
+    }
+
+    sidebet213() {
+        if(this.currentBetValue !== null) {
+            this.gameLogic.playerSidebet213(this.currentBetValue);
+        }
+        console.log(this.currentBetValue);
+    }
+
+    sidebetPair() {
+        if(this.currentBetValue !== null) {
+            this.gameLogic.playerSidebetPair(this.currentBetValue);
+        }
+        console.log(this.currentBetValue);
     }
 
     revokeBet() {

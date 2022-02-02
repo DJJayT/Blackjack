@@ -1,11 +1,33 @@
 class gameLogic {
 
     /***
-     * TODO:
-     * - Blackjack Prüfung
-     * - Unter 21 Prüfung
+     * TODO Jason:
+     * - Blackjack Prüfung Einbindung
      * - Ass-Regel Prüfung
+     * - Stand Regel einbauen
+     * - Double Regel einbauen
+     * - Split Regel einbauen
      * - Playerbet-Chip Hover funktioniert nicht
+     * - Sidebet Klick funktioniert teilweise - keine Ahnung warum, mal gehts mal nicht
+     */
+
+    /***
+     * TODO Marius:
+     * - 21+3 Sidebet hinzufügen
+     * - Perfect Pair Regel hinzufügen
+     */
+
+    /***
+     * TODO Kev:
+     * - Evtl Buttons etc. nach Live-Blackjack anordnen
+     * - Chip Farbe nach Bet-Size geben
+     * - Spieler Text runtersetzen
+     * - Lücke zwischen Dealerkarte und Spielerkarte
+     * - Buttons für Hit etc. gleich groß machen
+     * - "Zurück zum Menü" runter und centern
+     * - Spieleranzeigen sinnvoll setzen
+     * - Buttons evtl besser sortieren
+     * - Divs hinzufügen zum Karten Splitten
      */
 
     designLogic;
@@ -59,7 +81,7 @@ class gameLogic {
 
     startGame() {
         if(this.player.bet == 0) {
-            alert("Du musst zuerst einen Einsatz tätigen!");
+            alert("Du musst zuerst einen Haupteinsatz tätigen!");
             return;
         }
         this.designLogic.startGame(); //Bet-Chip muss noch Clicked etc. entfernt werden
@@ -76,6 +98,18 @@ class gameLogic {
     playerBet(betValue) {
         let betTotal = this.player.addBet(betValue);
         this.designLogic.showBet(betTotal);
+        this.designLogic.showMoney(this.player.money);
+    }
+
+    playerSidebet213(betValue) {
+        let betTotal = this.player.addSidebet213(betValue);
+        this.designLogic.showSidebet213(betTotal);
+        this.designLogic.showMoney(this.player.money);
+    }
+
+    playerSidebetPair(betValue) {
+        let betTotal = this.player.addSidebetPair(betValue);
+        this.designLogic.showSidebetPair(betTotal);
         this.designLogic.showMoney(this.player.money);
     }
 

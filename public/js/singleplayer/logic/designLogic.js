@@ -45,6 +45,14 @@ class designLogic {
         $("#playerbet").text(totalBet);
     }
 
+    showSidebet213(totalBet) {
+        $("#sidebet_213").text(totalBet);
+    }
+
+    showSidebetPair(totalBet) {
+        $("#sidebet_pair").text(totalBet);
+    }
+
     showMoney(playerMoney) {
         $("#playermoney").text(playerMoney);
     }
@@ -54,6 +62,7 @@ class designLogic {
         $("#startGame").addClass("hidden");
         $("#buttons").removeClass("hidden");
         $("#bet").removeClass("clickable");
+        $(".sidebet").removeClass("clickable");
     }
 
     showCardValuePlayer(value, aces) {
