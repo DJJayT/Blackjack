@@ -33,4 +33,8 @@ class cardShoe {
         this.dealerCard = Math.floor(Math.random() * (250-208) + 208);
         this.cardsPlayed = 0;
     }
+
+    checkDealerCardPlayed() {
+        return (this.cardsPlayed === this.dealerCard);
+    }
 }

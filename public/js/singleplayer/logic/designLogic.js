@@ -3,7 +3,7 @@ class designLogic {
     colorNames = ["Herz", "Karo", "Kreuz", "Pik"];
 
     getSymbol(cardSymbol) {
-        switch(cardSymbol) {
+        switch (cardSymbol) {
             case 0:
                 return "A";
             case 10:
@@ -54,7 +54,39 @@ class designLogic {
         $("#startGame").addClass("hidden");
         $("#buttons").removeClass("hidden");
         $("#bet").removeClass("clickable");
+    }
 
+    showCardValuePlayer(value, aces) {
+        if (value < 21 && aces >= 1) {
+            let secondValue = value - 10;
+            $("#playercardsvalue").text(secondValue + "/" + value);
 
+        } else if (value > 21 && aces >= 1) {
+            let secondValue = value - (aces * 10);
+            let higherValue = value;
+
+            do {
+                if (aces >= 1) {
+                    higherValue -= 10;
+                    aces--;
+                }
+            } while (value <= 21 || aces == 0);
+
+            if (higherValue == secondValue) {
+                $("#playercardsvalue").text(value);
+            } else {
+                $("#playercardsvalue").text(secondValue + "/" + higherValue);
+            }
+        } else {
+            $("#playercardsvalue").text(value);
+        }
+    }
+
+    hideGameButtons() {
+        $("#buttons").addClass("hidden");
+    }
+
+    showGameButtons() {
+        $("#buttons").removeClass("hidden");
     }
 }

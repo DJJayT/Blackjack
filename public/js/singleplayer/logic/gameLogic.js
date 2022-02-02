@@ -25,7 +25,8 @@ class gameLogic {
         this.designLogic.showCardPlayer(card);
         this.player.hit(card);
         let playerValue = this.player.getCardValues();
-        console.log(playerValue);
+        this.checkNextStep(playerValue);
+        this.designLogic.showCardValuePlayer(playerValue, this.player.checkHowMuchAces());
     }
 
     hitDealer(showCard) {
@@ -36,6 +37,24 @@ class gameLogic {
             this.designLogic.showDealerHiddenCard();
         }
         this.dealer.hit(card);
+    }
+
+    checkNextStep(playerValue) {
+        let aces = this.player.checkHowMuchAces();
+
+        if(playerValue == 21) {
+            this.playCardsDealer();
+        } else if(playerValue > 21) {
+            this.playerStands();
+        }
+    }
+
+    playerStands() {
+        this.designLogic.hideGameButtons();
+    }
+
+    playCardsDealer() {
+
     }
 
     startGame() {
@@ -52,10 +71,6 @@ class gameLogic {
         this.hitDealer(true);
         this.hitPlayer();
         this.hitDealer(false);
-        let dealerValue = this.dealer.getCardValues(true);
-        let playerValue = this.player.getCardValues();
-        console.log(playerValue);
-        console.log(dealerValue);
     }
 
     playerBet(betValue) {
