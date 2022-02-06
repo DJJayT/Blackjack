@@ -111,7 +111,26 @@
 .sidebet{
     display: inline-flex;
 }
+
 .playertext {
     position: absolute;
     bottom: 600px;
+}
+
+.playercards{
+    position: absolute;
+    left: 910px;
+    bottom: 620px;
+}
+
+.playercardsvalue{
+    position: absolute;
+    left: 930px;
+    bottom: 600px;
+}
+
+.back{
+    position: absolute;
+    right: 800px;
+    bottom: 100px;
 }
