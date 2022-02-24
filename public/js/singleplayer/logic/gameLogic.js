@@ -13,10 +13,13 @@ class gameLogic {
      * TODO Marius:
      * - 21+3 Sidebet hinzufügen
      * - Perfect Pair Regel hinzufügen
+     * - Zu PHP einlesen
      */
 
     /***
      * TODO Kev:
+     * - Zu Canvas einlesen und umsetzen <- Hauptprio
+     *
      * - Evtl Buttons etc. nach Live-Blackjack anordnen
      * - Chip Farbe nach Bet-Size geben
      * - Buttons für Hit etc. gleich groß machen

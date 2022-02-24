@@ -10,7 +10,7 @@ class baseController
      * @param $html
      * @param null $params
      */
-    public function renderViewAction($html, $params = null)
+    public function renderViewAction($html, $params = null): void
     {
 
         //Shows the frontend to the user

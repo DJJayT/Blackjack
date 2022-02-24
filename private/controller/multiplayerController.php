@@ -2,7 +2,10 @@
 
 namespace controller;
 
-class multiplayerController
+class multiplayerController extends baseController
 {
-
+    public function multiplayerAction(): void
+    {
+        //Hier Code schreiben
+    }
 }
