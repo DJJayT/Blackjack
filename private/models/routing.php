@@ -23,17 +23,6 @@ class routing
 
         if ($urlParams[1] != null) {
 
-            //Für Canvas
-            if($urlParams[1] === "beta") {
-                $controller = new betaController();
-                $controller->showAction();
-                return;
-            }
-
-
-
-
-
             if (($urlParams[1] === "singleplayer" ||                     //Hier wird Singleplayer und/oder Multiplayer geladen
                     $urlParams[1] === "multiplayer") &&
                 (count($urlParams) == 2 ||                              //Hier wird geschaut ob nicht noch etwas anderes ausgeführt wird oder ob es leer ist

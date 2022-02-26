@@ -21,7 +21,7 @@ class designLogic {
         let symbol = this.getSymbol(card.symbol);
         let cardImg;
         cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
-        this.showCard(cardImg, "dealer")
+        this.showCard(cardImg, "dealer");
     }
 
     showDealerHiddenCard() {
@@ -32,7 +32,7 @@ class designLogic {
         let symbol = this.getSymbol(card.symbol);
         let cardImg;
         cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
-        this.showCard(cardImg, "player")
+        this.showCard(cardImg, "player");
     }
 
     showCard(cardImg, person) {

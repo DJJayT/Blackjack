@@ -1,21 +1,12 @@
-* {
-    text-align: center;
-}
-
-#gameField {
-    width: 1400px;
-    height: 400px;
+#gamefield {
+    margin: 0 auto 0 auto;
     background-color: green;
+    width: 80%;
+    height: 350px;
 }
 
-.canvasBorder {
-    height: 400px;
-    width: 1400px;
-    border: 2px solid #757575;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
+#gamefield * {
+    background-color: green;
 }
 
 #hit {
@@ -109,6 +100,10 @@
     background: #424242;
 }
 
+.card {
+    margin-left: 5px;
+}
+
 .bet {
     height: 50px;
     display: inline-flex;
@@ -118,6 +113,25 @@
     display: inline-flex;
 }
 
-#otherButtons {
-    margin-top: 30px;
+.playertext {
+    position: absolute;
+    bottom: 600px;
+}
+
+.playercards {
+    position: absolute;
+    left: 910px;
+    bottom: 620px;
+}
+
+.playercardsvalue {
+    position: absolute;
+    left: 930px;
+    bottom: 600px;
+}
+
+.back {
+    position: absolute;
+    right: 800px;
+    bottom: 100px;
 }
