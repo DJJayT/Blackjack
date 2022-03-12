@@ -83,7 +83,6 @@ class actions {
         if(this.currentBetValue !== null) {
             this.gameLogic.playerBet(this.currentBetValue);
         }
-        console.log(this.currentBetValue);
     }
 
     sidebet213() {

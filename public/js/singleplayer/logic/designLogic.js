@@ -25,7 +25,9 @@ class designLogic {
     }
 
     showDealerHiddenCard() {
-        $("#dealercards").append("<img class='card' src='../../../public/img/Hintergrund.png' width='50px'>");
+        $("#dealercards").append("<img id='cardToAdd' class='card' src='../../../public/img/Hintergrund.png' width='50px'>");
+    
+        
     }
 
     showCardPlayer(card) {
@@ -36,9 +38,17 @@ class designLogic {
     }
 
     showCard(cardImg, person) {
-        person = "#" + person + "cards";
-        $(person).append("<img class='card' src='../../../public/img/" + cardImg + "' width='50px'>");
-        //$("#test").attr("src", "../../../public/img/" + cardImg);
+    
+        let ctx = document.getElementById("gameField").getContext("2d");
+        let img = new Image();
+        img.src= "../../../public/img/" + cardImg;
+        img.onload = function() {
+            ctx.drawImage(img, 10, 10);
+        };
+        
+        
+        
+        
     }
 
     showBet(totalBet) {

@@ -48,6 +48,7 @@ class gameLogic {
         this.player.hit(card);
         let playerValue = this.player.getCardValues();
         this.checkNextStep(playerValue);
+        console.log("player:", card.value, this.designLogic.getSymbol(card.symbol), this.designLogic.colorNames[card.color]);
         this.designLogic.showCardValuePlayer(playerValue, this.player.checkHowMuchAces());
     }
 
@@ -58,6 +59,7 @@ class gameLogic {
         } else {
             this.designLogic.showDealerHiddenCard();
         }
+        console.log("dealer:", card.value, this.designLogic.getSymbol(card.symbol), this.designLogic.colorNames[card.color]);
         this.dealer.hit(card);
     }
 
