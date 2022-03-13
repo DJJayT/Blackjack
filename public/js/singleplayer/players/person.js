@@ -28,10 +28,10 @@ class person {
         return aces;
     }
 
-    checkBlackjack() {
+    /*checkBlackjack() {
         let value = this.getCardValues();
         return (value === 21 && this.cards.length === 2);
     }
-
+    */
 
 }

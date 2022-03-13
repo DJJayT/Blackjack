@@ -38,7 +38,25 @@ class player extends person {
         if(this.money >= betValue) {
             this.sidebetPair += betValue;
             this.money -= betValue;
+
         }
         return this.sidebetPair;
+    }
+
+    checkPairHit(){
+        let pairCategory = () => {
+            if(this.cards[0].symbol == this.cards[1].symbol && this.cards[0].color == this.cards[1].color){
+                this.kindOfPair = "PerfectPair";
+            } else if (this.cards[0].color == this.cards[1].color){
+                this.kindOfPair = "ColoredPair"
+            } else if (this.cards[0].symbol == this.cards[1].symbol){
+                this.kindOfPair = "RedBlackPair";
+
+            } else {
+                this.kindOfPair=("No hits");
+            }
+        };
+        let kindOfPair =pairCategory();
+        return this.kindOfPair;
     }
 }

@@ -34,6 +34,9 @@ class gameLogic {
     cardShoe;
     player;
     dealer;
+    playPerfectPair;
+    play213;
+
 
     constructor() {
         this.designLogic = new designLogic();
@@ -88,6 +91,19 @@ class gameLogic {
         }
         this.designLogic.startGame(); //Bet-Chip muss noch Clicked etc. entfernt werden
         this.dealCards();
+
+
+
+        //Check Perfect Pair
+        if(this.playPerfectPair == true){
+            console.log(this.player.checkPairHit());
+        }
+
+        //Check 21+3
+        if(this.player.play213 == true) {
+            console.log("Coming soon");
+        }
+
     }
 
     dealCards() {
@@ -107,12 +123,18 @@ class gameLogic {
         let betTotal = this.player.addSidebet213(betValue);
         this.designLogic.showSidebet213(betTotal);
         this.designLogic.showMoney(this.player.money);
+        this.play213 = true;
+        //21+3 rechter Side Bet
+        //Not working atm
     }
 
     playerSidebetPair(betValue) {
         let betTotal = this.player.addSidebetPair(betValue);
         this.designLogic.showSidebetPair(betTotal);
         this.designLogic.showMoney(this.player.money);
+        this.playPerfectPair = true;
+        //PerfectPair linker Side Bet
+
     }
 
     revokeBet() {
