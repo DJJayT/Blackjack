@@ -3,14 +3,9 @@
 }
 
 #gameField {
-    width: 1400px;
-    height: 400px;
+    width: 80%;
+    height: 40%;
     background-color: green;
-}
-
-.canvasBorder {
-    height: 400px;
-    width: 1400px;
     border: 2px solid #757575;
     text-align: center;
     margin-left: auto;

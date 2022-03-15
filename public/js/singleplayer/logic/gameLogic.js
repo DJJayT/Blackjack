@@ -34,8 +34,8 @@ class gameLogic {
     cardShoe;
     player;
     dealer;
-    playPerfectPair;
-    play213;
+    playPerfectPair = false;
+    play213 = false;
 
 
     constructor() {
@@ -47,37 +47,38 @@ class gameLogic {
 
     hitPlayer() {
         let card = this.cardShoe.getRandomCard();
-        this.designLogic.showCardPlayer(card);
         this.player.hit(card);
+        this.designLogic.addCardPlayer(card, this.player.cards.length);
         let playerValue = this.player.getCardValues();
         this.checkNextStep(playerValue);
-        console.log("player:", card.value, this.designLogic.getSymbol(card.symbol), this.designLogic.colorNames[card.color]);
         this.designLogic.showCardValuePlayer(playerValue, this.player.checkHowMuchAces());
+        this.designLogic.showCards(this.player.cards, this.dealer.cards);
     }
 
     hitDealer(showCard) {
         let card = this.cardShoe.getRandomCard();
-        if(showCard) {
+        if (showCard) {
             this.designLogic.showCardDealer(card);
         } else {
             this.designLogic.showDealerHiddenCard();
         }
-        console.log("dealer:", card.value, this.designLogic.getSymbol(card.symbol), this.designLogic.colorNames[card.color]);
         this.dealer.hit(card);
+        this.designLogic.showCards(this.player.cards, this.dealer.cards);
     }
 
     checkNextStep(playerValue) {
         let aces = this.player.checkHowMuchAces();
 
-        if(playerValue == 21) {
+        if (playerValue === 21) {
             this.playCardsDealer();
-        } else if(playerValue > 21) {
+        } else if (playerValue > 21) {
             this.playerStands();
         }
     }
 
     playerStands() {
         this.designLogic.hideGameButtons();
+        this.playCardsDealer();
     }
 
     playCardsDealer() {
@@ -85,7 +86,7 @@ class gameLogic {
     }
 
     startGame() {
-        if(this.player.bet == 0) {
+        if (this.player.bet === 0) {
             alert("Du musst zuerst einen Haupteinsatz tätigen!");
             return;
         }
@@ -93,14 +94,13 @@ class gameLogic {
         this.dealCards();
 
 
-
         //Check Perfect Pair
-        if(this.playPerfectPair == true){
+        if (this.playPerfectPair === true) {
             console.log(this.player.checkPairHit());
         }
 
         //Check 21+3
-        if(this.player.play213 == true) {
+        if (this.player.play213 === true) {
             console.log("Coming soon");
         }
 

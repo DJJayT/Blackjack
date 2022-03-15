@@ -1,6 +1,29 @@
 class designLogic {
 
+    static canvasWidth = 0;
+    static canvasHeight = 0;
+
     colorNames = ["Herz", "Karo", "Kreuz", "Pik"];
+
+    constructor() {
+        this.resizeCanvas();
+        $(window).resize(function() {
+            this.resizeCanvas();
+        }.bind(this));
+    }
+
+    resizeCanvas() {
+        designLogic.canvasWidth = (window.innerWidth / 100) * 80;
+        designLogic.canvasHeight = (window.innerHeight / 100) * 40;
+        $(function () {
+            let canvas = document.getElementById("gameField");
+            let canvasBorder = document.getElementById("canvasBorder");
+            canvas.width = designLogic.canvasWidth;
+            canvas.height = designLogic.canvasHeight;
+            canvasBorder.width = designLogic.canvasWidth;
+            canvasBorder.height = designLogic.canvasHeight;
+        });
+    }
 
     getSymbol(cardSymbol) {
         switch (cardSymbol) {
@@ -21,34 +44,44 @@ class designLogic {
         let symbol = this.getSymbol(card.symbol);
         let cardImg;
         cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
-        this.showCard(cardImg, "dealer");
+        //this.showCard(cardImg, "dealer");
     }
 
     showDealerHiddenCard() {
         $("#dealercards").append("<img id='cardToAdd' class='card' src='../../../public/img/Hintergrund.png' width='50px'>");
-    
-        
+
+
     }
 
-    showCardPlayer(card) {
+    addCardPlayer(card, cardLength) {
+
+        let x = 10 + (cardLength * 30); //Testfunktion
+        let y = 50 - (cardLength * 30);
+
         let symbol = this.getSymbol(card.symbol);
         let cardImg;
         cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
-        this.showCard(cardImg, "player");
+
+        let img = new Image(10, 15);
+        img.src = "../../../public/img/" + cardImg;
+
+        card.setDrawVariables(x, y, img);
     }
 
-    showCard(cardImg, person) {
-    
-        let ctx = document.getElementById("gameField").getContext("2d");
-        let img = new Image();
-        img.src= "../../../public/img/" + cardImg;
-        img.onload = function() {
-            ctx.drawImage(img, 10, 10);
-        };
-        
-        
-        
-        
+    showCards(cardsPlayer, cardsDealer) {
+        let canvas = document.getElementById("gameField");
+        console.log(canvas.width, canvas.height);
+        let ctx = canvas.getContext("2d");
+        ctx.fillRect(10, 10, 10, 10);
+
+
+        /*cardsPlayer.forEach(function(card) {
+            card.imageObject.onload = function() {
+                ctx.drawImage(card.imageObject, card.x, card.y, 30, 10)
+            }
+        });*/
+
+
     }
 
     showBet(totalBet) {
