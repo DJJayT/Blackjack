@@ -50,6 +50,7 @@ class designLogic {
     resizeCanvas() {
         designLogic.canvasWidth = (window.innerWidth / 100) * 80;
         designLogic.canvasHeight = (window.innerHeight / 100) * 40;
+        console.log(designLogic.canvasHeight);
         $(function () {
             let canvas = document.getElementById("gameField");
             canvas.width = designLogic.canvasWidth;
@@ -73,7 +74,7 @@ class designLogic {
     
     addCardPlayer(card, cardLength) {
         let x = cardLength * 14; //Testfunktion
-        let y = (designLogic.canvasHeight - 70) - (cardLength * 13);
+        let y = (cardLength * 13);
         
         let symbol = this.getSymbol(card.symbol);
         let cardImg;
@@ -88,19 +89,28 @@ class designLogic {
     showCards(cardsPlayer, cardsDealer) {
         this.cardsPlayer = cardsPlayer; //Für Resize-Event
         this.cardsDealer = cardsDealer;
+        let height = designLogic.canvasHeight;
+        let width = designLogic.canvasWidth;
         
         let canvas = document.getElementById("gameField");
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        console.log(cardsPlayer);
         
-        let reversed = cardsPlayer.reverse();
-        cardsPlayer.forEach(function (card) {
-            ctx.drawImage(card.imageObject, card.getX(), card.y, 45, 70);
-        });
-        
-        
+        for (let i = 0; i < cardsPlayer.length; i++) {
+            let card = cardsPlayer[i];
+            setTimeout(function () {
+                if (width === designLogic.canvasWidth && height === designLogic.canvasHeight) {
+                    ctx.drawImage(card.imageObject, card.getX(), card.getY(), 45, 70);
+                }
+            },  50 + i * 50);
+        }
+    }
+    
+    resetBets() {
+        $("#mainbet_text").text(0);
+        $("#sidebet_213_text").text(0);
+        $("#sidebet_pair_text").text(0);
     }
     
     showBet(totalBet) {

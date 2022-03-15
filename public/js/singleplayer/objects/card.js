@@ -38,5 +38,9 @@ class card {
     getX() {
         return designLogic.canvasWidth/2 + this.x - 40;
     }
+    
+    getY() {
+        return designLogic.canvasHeight - this.y - 70;
+    }
 
 }

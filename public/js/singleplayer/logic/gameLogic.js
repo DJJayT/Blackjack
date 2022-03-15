@@ -1,35 +1,5 @@
 class gameLogic {
-
-    /***
-     * TODO Jason:
-     * - Blackjack Prüfung Einbindung
-     * - Ass-Regel Prüfung
-     * - Stand Regel einbauen
-     * - Double Regel einbauen
-     * - Split Regel einbauen
-     */
-
-    /***
-     * TODO Marius:
-     * - 21+3 Sidebet hinzufügen
-     * - Perfect Pair Regel hinzufügen
-     * - Zu PHP einlesen
-     */
-
-    /***
-     * TODO Kev:
-     * - Zu Canvas einlesen und umsetzen <- Hauptprio
-     *
-     * - Evtl Buttons etc. nach Live-Blackjack anordnen
-     * - Chip Farbe nach Bet-Size geben
-     * - Buttons für Hit etc. gleich groß machen
-     * - "Zurück zum Menü" runter und centern
-     * - Spieleranzeigen sinnvoll setzen
-     * - Buttons evtl besser sortieren
-     * - Divs hinzufügen zum Karten Splitten
-     * - Playerbet-Chip Hover funktioniert nicht
-     */
-
+    
     designLogic;
     cardShoe;
     player;
@@ -134,13 +104,11 @@ class gameLogic {
         this.designLogic.showMoney(this.player.money);
         this.playPerfectPair = true;
         //PerfectPair linker Side Bet
-
     }
 
     revokeBet() {
-        this.player.revokeBet();
-        this.designLogic.showBet("0");
+        this.player.revokeBets();
+        this.designLogic.resetBets();
         this.designLogic.showMoney(this.player.money);
     }
-
 }
