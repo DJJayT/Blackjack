@@ -33,7 +33,10 @@ class card {
         }
 
         this.showCard = showCard;
-
+    }
+    
+    getX() {
+        return designLogic.canvasWidth/2 + this.x - 40;
     }
 
 }

@@ -31,18 +31,20 @@ class designLogic {
     }
     
     loadCards() {
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 13; j++) {
-                let symbol = this.getSymbol(j);
-                let cardImg = "../../../public/img/" + symbol + "_" + this.colorNames[i] + ".png";
-                console.log(cardImg);
-                
-                
-                $("#cardPreload").append("<img class='card' src='" + cardImg + ">");
-                
-                
+        $(function () {
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 13; j++) {
+                    let symbol = this.getSymbol(j);
+                    let cardImg = "../../../public/img/" + symbol + "_" + this.colorNames[i] + ".png";
+                    let img = new Image(27, 42);
+                    img.src = cardImg;
+                    
+                    $("#gameField").append(img);
+                    
+                    
+                }
             }
-        }
+        }.bind(this));
     }
     
     resizeCanvas() {
@@ -70,9 +72,8 @@ class designLogic {
     }
     
     addCardPlayer(card, cardLength) {
-        
-        let x = 10 + (cardLength * 15); //Testfunktion
-        let y = 150 - (cardLength * 15);
+        let x = cardLength * 14; //Testfunktion
+        let y = (designLogic.canvasHeight - 70) - (cardLength * 13);
         
         let symbol = this.getSymbol(card.symbol);
         let cardImg;
@@ -95,10 +96,8 @@ class designLogic {
         console.log(cardsPlayer);
         
         let reversed = cardsPlayer.reverse();
-        reversed.forEach(function (card) {
-            card.imageObject.onload = function() {
-                ctx.drawImage(card.imageObject, card.x, card.y, 45, 70);
-            };
+        cardsPlayer.forEach(function (card) {
+            ctx.drawImage(card.imageObject, card.getX(), card.y, 45, 70);
         });
         
         
