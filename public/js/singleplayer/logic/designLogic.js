@@ -4,6 +4,8 @@ class designLogic {
     static canvasHeight = 0;
     cardsDealer = Array();
     cardsPlayer = Array();
+    valueTextDealer = "";
+    valueTextPlayer = "";
     
     colorNames = ["Herz", "Karo", "Kreuz", "Pik"];
     
@@ -49,18 +51,17 @@ class designLogic {
     
     resizeCanvas() {
         designLogic.canvasWidth = (window.innerWidth / 100) * 80;
-        designLogic.canvasHeight = (window.innerHeight / 100) * 40;
+        designLogic.canvasHeight = (window.innerHeight / 100) * 50;
         console.log(designLogic.canvasHeight);
         $(function () {
             let canvas = document.getElementById("gameField");
             canvas.width = designLogic.canvasWidth;
             canvas.height = designLogic.canvasHeight;
-            this.showCards(this.cardsPlayer, this.cardsDealer);
+            this.updateTable(this.cardsPlayer, this.cardsDealer, this.valueTextPlayer, this.valueTextDealer);
         }.bind(this));
     }
     
     addCard(card, cardLength, x, y, showCard = true, cardFromDealer = false) {
-        console.log(card);
         let symbol = this.getSymbol(card.symbol);
         let cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
         
@@ -72,32 +73,34 @@ class designLogic {
     
     addCardDealer(card, cardLength, showCard = true) {
         let x = cardLength * 15;
-        let y = 20;
+        let y = 40;
         
         this.addCard(card, cardLength, x, y, showCard, true);
     }
     
     addDealerHiddenCard(card, cardLength) {
         let x = cardLength * 15;
-        let y = 20;
+        let y = 40;
         let cardImg = "Cardback.png";
         
         let img = new Image(27, 42);
         img.src = "../../../public/img/" + cardImg;
-    
+        
         card.setDrawVariables(x, y, img, false, true);
     }
     
     addCardPlayer(card, cardLength) {
         let x = cardLength * 14;
-        let y = (cardLength * 13);
+        let y = cardLength * 13 + 40;
         
         this.addCard(card, cardLength, x, y);
     }
     
-    showCards(cardsPlayer, cardsDealer) {
+    updateTable(cardsPlayer, cardsDealer, scorePlayer, scoreDealer) {
         this.cardsPlayer = cardsPlayer; //Für Resize-Event
         this.cardsDealer = cardsDealer;
+        this.valueTextPlayer = scorePlayer;
+        this.valueTextDealer = scoreDealer;
         
         let canvas = document.getElementById("gameField");
         let ctx = canvas.getContext("2d");
@@ -105,6 +108,12 @@ class designLogic {
         
         this.showCardsFromArray(cardsPlayer, ctx);
         this.showCardsFromArray(cardsDealer, ctx);
+        
+        ctx.font = "10px Arial";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText(scorePlayer, designLogic.canvasWidth/2, designLogic.canvasHeight-30);
+        ctx.fillText(scoreDealer, designLogic.canvasWidth/2, 30);
     }
     
     showCardsFromArray(cards, ctx) {
@@ -149,32 +158,6 @@ class designLogic {
         $("#mainbet").removeClass("clickable");
         $(".sidebet").removeClass("clickable");
         this.showGameButtons();
-    }
-    
-    showCardValuePlayer(value, aces) {
-        if (value < 21 && aces >= 1) {
-            let secondValue = value - 10;
-            $("#playercardsvalue").text(secondValue + "/" + value);
-            
-        } else if (value > 21 && aces >= 1) {
-            let secondValue = value - (aces * 10);
-            let higherValue = value;
-            
-            do {
-                if (aces >= 1) {
-                    higherValue -= 10;
-                    aces--;
-                }
-            } while (value <= 21 || aces === 0);
-            
-            if (higherValue === secondValue) {
-                $("#playercardsvalue").text(value);
-            } else {
-                $("#playercardsvalue").text(secondValue + "/" + higherValue);
-            }
-        } else {
-            $("#playercardsvalue").text(value);
-        }
     }
     
     hideGameButtons() {

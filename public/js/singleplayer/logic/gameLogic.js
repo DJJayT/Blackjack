@@ -1,5 +1,6 @@
 class gameLogic {
     
+    static gameRunning = false;
     designLogic;
     cardShoe;
     player;
@@ -21,8 +22,9 @@ class gameLogic {
         this.designLogic.addCardPlayer(card, this.player.cards.length);
         let playerValue = this.player.getCardValues();
         this.checkNextStep(playerValue);
-        this.designLogic.showCardValuePlayer(playerValue, this.player.checkHowMuchAces());
-        this.designLogic.showCards(this.player.cards, this.dealer.cards);
+        console.log(card);
+        this.player.createCardValueText();
+        this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
     }
 
     hitDealer(showCard) {
@@ -33,11 +35,12 @@ class gameLogic {
             this.designLogic.addDealerHiddenCard(card, this.dealer.cards.length);
         }
         this.dealer.hit(card);
-        this.designLogic.showCards(this.player.cards, this.dealer.cards);
+        this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
+        this.dealer.createCardValueText();
     }
 
     checkNextStep(playerValue) {
-        //let aces = this.player.checkHowMuchAces();
+        let aces = this.player.checkHowMuchAces();
 
         console.log(playerValue);
         if (playerValue === 21) {
@@ -48,13 +51,17 @@ class gameLogic {
     }
 
     playerStands() {
+        gameLogic.gameRunning = false;
         this.designLogic.hideGameButtons();
         this.playCardsDealer();
     }
 
     playCardsDealer() {
         this.designLogic.addCardDealer(this.dealer.cards[1], this.dealer.cards.length - 1);
-        this.hitDealer(true);
+        this.dealer.createCardValueText();
+        while(this.dealer.getCardValues() < 17 && !(this.player.getCardValues() > 21)) {
+            this.hitDealer(true);
+        }
     }
 
     startGame() {
@@ -62,6 +69,7 @@ class gameLogic {
             alert("Du musst zuerst einen Haupteinsatz tätigen!");
             return;
         }
+        gameLogic.gameRunning = true;
         this.designLogic.startGame(); //Bet-Chip muss noch Clicked etc. entfernt werden
         this.dealCards();
 
