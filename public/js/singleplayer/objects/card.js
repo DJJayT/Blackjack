@@ -8,8 +8,9 @@ class card {
 
     x;
     y;
-    imageObject;
+    imageObject = null;
     showCard;
+    cardFromDealer;
 
     constructor(color, symbol) {
         this.color = color;
@@ -25,7 +26,7 @@ class card {
         }
     }
 
-    setDrawVariables(x, y, imageObject = null, showCard = true) {
+    setDrawVariables(x, y, imageObject = null, showCard, cardFromDealer) {
         this.x = x;
         this.y = y;
         if(imageObject !== null) {
@@ -33,14 +34,23 @@ class card {
         }
 
         this.showCard = showCard;
+        this.cardFromDealer = cardFromDealer;
     }
     
     getX() {
-        return designLogic.canvasWidth/2 + this.x - 40;
+        if(this.cardFromDealer === false) {
+            return designLogic.canvasWidth/2 + this.x - 40;
+        } else {
+            return designLogic.canvasWidth/2 + this.x - 30;
+        }
     }
     
     getY() {
-        return designLogic.canvasHeight - this.y - 70;
+        if(this.cardFromDealer === false) {
+            return designLogic.canvasHeight - this.y - 70;
+        } else {
+            return this.y;
+        }
     }
 
 }

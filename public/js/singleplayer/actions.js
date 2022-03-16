@@ -68,7 +68,7 @@ class actions {
     }
 
     standButtonClicked() {
-        console.log("Stand");
+        this.gameLogic.playerStands();
     }
 
     splitButtonClicked() {

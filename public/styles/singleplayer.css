@@ -10,7 +10,7 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 #hit {
@@ -88,11 +88,12 @@
 
 .symbol {
     font-size: 2rem;
-    display: inline-flex;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.playchip {
-    display: inline-flex;
+.betchip {
+    display: inline-block;
 }
 
 .center {
@@ -107,12 +108,48 @@
 .bet {
     height: 50px;
     display: inline-flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .sidebet {
     display: inline-flex;
 }
 
+.gameButton {
+    height: 50px;
+    width: 75px;
+    margin-left: 5px;
+    border: none;
+
+    text-decoration: none;
+    background: #757575;
+    font-family: sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 200ms ease-in-out,
+    transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
 #otherButtons {
     margin-top: 30px;
+}
+
+#chips {
+    display: inline-flex;
+}
+
+#gameButtons {
+    display: inline-flex;
+}
+
+#backToMenuButton {
+    position: absolute;
+    margin-top: 5%;
+    left: 1%;
+    padding: 5px 10px 5px 10px;
+    font-size: 1.5em;
 }

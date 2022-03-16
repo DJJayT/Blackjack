@@ -28,19 +28,20 @@ class gameLogic {
     hitDealer(showCard) {
         let card = this.cardShoe.getRandomCard();
         if (showCard) {
-            this.designLogic.showCardDealer(card);
+            this.designLogic.addCardDealer(card, this.dealer.cards.length);
         } else {
-            this.designLogic.showDealerHiddenCard();
+            this.designLogic.addDealerHiddenCard(card, this.dealer.cards.length);
         }
         this.dealer.hit(card);
         this.designLogic.showCards(this.player.cards, this.dealer.cards);
     }
 
     checkNextStep(playerValue) {
-        let aces = this.player.checkHowMuchAces();
+        //let aces = this.player.checkHowMuchAces();
 
+        console.log(playerValue);
         if (playerValue === 21) {
-            this.playCardsDealer();
+            this.playerStands();
         } else if (playerValue > 21) {
             this.playerStands();
         }
@@ -52,7 +53,8 @@ class gameLogic {
     }
 
     playCardsDealer() {
-
+        this.designLogic.addCardDealer(this.dealer.cards[1], this.dealer.cards.length - 1);
+        this.hitDealer(true);
     }
 
     startGame() {

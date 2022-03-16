@@ -12,7 +12,11 @@ class designLogic {
         $(window).resize(function () {
             this.resizeCanvas();
         }.bind(this));
-        this.loadCards();
+        
+        $(function () {
+            this.loadCards();
+            this.hideGameButtons();
+        }.bind(this));
     }
     
     getSymbol(cardSymbol) {
@@ -31,20 +35,16 @@ class designLogic {
     }
     
     loadCards() {
-        $(function () {
-            for (let i = 0; i < 4; i++) {
-                for (let j = 0; j < 13; j++) {
-                    let symbol = this.getSymbol(j);
-                    let cardImg = "../../../public/img/" + symbol + "_" + this.colorNames[i] + ".png";
-                    let img = new Image(27, 42);
-                    img.src = cardImg;
-                    
-                    $("#gameField").append(img);
-                    
-                    
-                }
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 13; j++) {
+                let symbol = this.getSymbol(j);
+                let cardImg = "../../../public/img/" + symbol + "_" + this.colorNames[i] + ".png";
+                let img = new Image(27, 42);
+                img.src = cardImg;
+                
+                $("#gameField").append(img);
             }
-        }.bind(this));
+        }
     }
     
     resizeCanvas() {
@@ -59,51 +59,65 @@ class designLogic {
         }.bind(this));
     }
     
-    showCardDealer(card) {
+    addCard(card, cardLength, x, y, showCard = true, cardFromDealer = false) {
+        console.log(card);
         let symbol = this.getSymbol(card.symbol);
-        let cardImg;
-        cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
-        //this.showCard(cardImg, "dealer");
-    }
-    
-    showDealerHiddenCard() {
-        $("#dealercards").append("<img id='cardToAdd' class='card' src='../../../public/img/Hintergrund.png' width='50px'>");
-        
-        
-    }
-    
-    addCardPlayer(card, cardLength) {
-        let x = cardLength * 14; //Testfunktion
-        let y = (cardLength * 13);
-        
-        let symbol = this.getSymbol(card.symbol);
-        let cardImg;
-        cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
+        let cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
         
         let img = new Image(27, 42);
         img.src = "../../../public/img/" + cardImg;
         
-        card.setDrawVariables(x, y, img);
+        card.setDrawVariables(x, y, img, showCard, cardFromDealer);
+    }
+    
+    addCardDealer(card, cardLength, showCard = true) {
+        let x = cardLength * 15;
+        let y = 20;
+        
+        this.addCard(card, cardLength, x, y, showCard, true);
+    }
+    
+    addDealerHiddenCard(card, cardLength) {
+        let x = cardLength * 15;
+        let y = 20;
+        let cardImg = "Cardback.png";
+        
+        let img = new Image(27, 42);
+        img.src = "../../../public/img/" + cardImg;
+    
+        card.setDrawVariables(x, y, img, false, true);
+    }
+    
+    addCardPlayer(card, cardLength) {
+        let x = cardLength * 14;
+        let y = (cardLength * 13);
+        
+        this.addCard(card, cardLength, x, y);
     }
     
     showCards(cardsPlayer, cardsDealer) {
         this.cardsPlayer = cardsPlayer; //Für Resize-Event
         this.cardsDealer = cardsDealer;
-        let height = designLogic.canvasHeight;
-        let width = designLogic.canvasWidth;
         
         let canvas = document.getElementById("gameField");
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
+        this.showCardsFromArray(cardsPlayer, ctx);
+        this.showCardsFromArray(cardsDealer, ctx);
+    }
+    
+    showCardsFromArray(cards, ctx) {
+        let height = designLogic.canvasHeight;
+        let width = designLogic.canvasWidth;
         
-        for (let i = 0; i < cardsPlayer.length; i++) {
-            let card = cardsPlayer[i];
+        for (let i = 0; i < cards.length; i++) {
+            let card = cards[i];
             setTimeout(function () {
-                if (width === designLogic.canvasWidth && height === designLogic.canvasHeight) {
+                if ((width === designLogic.canvasWidth && height === designLogic.canvasHeight) && card.imageObject !== null) {
                     ctx.drawImage(card.imageObject, card.getX(), card.getY(), 45, 70);
                 }
-            },  50 + i * 50);
+            }, 50 + i * 50);
         }
     }
     
@@ -132,9 +146,9 @@ class designLogic {
     startGame() {
         $("#chips").addClass("hidden");
         $("#startGame").addClass("hidden");
-        $("#buttons").removeClass("hidden");
         $("#mainbet").removeClass("clickable");
         $(".sidebet").removeClass("clickable");
+        this.showGameButtons();
     }
     
     showCardValuePlayer(value, aces) {
@@ -151,7 +165,7 @@ class designLogic {
                     higherValue -= 10;
                     aces--;
                 }
-            } while (value <= 21 || aces == 0);
+            } while (value <= 21 || aces === 0);
             
             if (higherValue === secondValue) {
                 $("#playercardsvalue").text(value);
@@ -164,10 +178,19 @@ class designLogic {
     }
     
     hideGameButtons() {
-        $("#buttons").addClass("hidden");
+        let gameButtons = $(".gameButton");
+        
+        gameButtons.css({"width": 0});
+        gameButtons.css({"height": 0});
+        gameButtons.addClass("hidden");
+        
     }
     
     showGameButtons() {
-        $("#buttons").removeClass("hidden");
+        let gameButtons = $(".gameButton");
+        
+        gameButtons.css({"width": "75px"});
+        gameButtons.css({"height": "50px"});
+        gameButtons.removeClass("hidden");
     }
 }
