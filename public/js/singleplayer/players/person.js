@@ -41,12 +41,13 @@ class person {
         } else if (value > 21 && aces >= 1) {
             let secondValue = value - (aces * 10);
             let higherValue = value;
+            
             do {
                 if (aces >= 1) {
                     higherValue -= 10;
                     aces--;
                 }
-            } while (value <= 21 || aces === 0);
+            } while (value >= 21 && aces > 0);
             
             if (higherValue !== secondValue && gameLogic.gameRunning) {
                 this.valueText = secondValue + "/" + higherValue;

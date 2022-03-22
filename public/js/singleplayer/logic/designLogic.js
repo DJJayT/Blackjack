@@ -108,11 +108,13 @@ class designLogic {
         this.showCardsFromArray(cardsPlayer, ctx);
         this.showCardsFromArray(cardsDealer, ctx);
         
-        ctx.font = "10px Arial";
+        ctx.font = "20px Arial";
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
-        ctx.fillText(scorePlayer, designLogic.canvasWidth/2, designLogic.canvasHeight-30);
-        ctx.fillText(scoreDealer, designLogic.canvasWidth/2, 30);
+        ctx.fillText(scorePlayer, designLogic.canvasWidth / 2, designLogic.canvasHeight - 20);
+        ctx.fillText(scoreDealer, designLogic.canvasWidth / 2, 30);
+        
+        ctx.fillText(gameLogic.gameDisplay, designLogic.canvasWidth / 2, designLogic.canvasHeight / 2);
     }
     
     showCardsFromArray(cards, ctx) {
@@ -152,14 +154,26 @@ class designLogic {
     }
     
     startGame() {
+        this.cardsDealer = Array();
+        this.cardsPlayer = Array();
+        
         $("#chips").addClass("hidden");
         $("#startGame").addClass("hidden");
         $("#mainbet").removeClass("clickable");
         $(".sidebet").removeClass("clickable");
+        $(".playchip").removeClass("clicked");
         this.showGameButtons();
     }
     
+    gameEnd() {
+        $("#chips").removeClass("hidden");
+        $("#startGame").removeClass("hidden");
+        $("#mainbet").addClass("clickable");
+        $(".sidebet").addClass("clickable");
+    }
+    
     hideGameButtons() {
+        console.log("game Buttons weg")
         let gameButtons = $(".gameButton");
         
         gameButtons.css({"width": 0});

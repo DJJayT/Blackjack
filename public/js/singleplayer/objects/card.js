@@ -47,7 +47,7 @@ class card {
     
     getY() {
         if(this.cardFromDealer === false) {
-            return designLogic.canvasHeight - this.y - 70;
+            return designLogic.canvasHeight - this.y - 60;
         } else {
             return this.y;
         }
