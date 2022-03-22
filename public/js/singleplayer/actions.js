@@ -1,6 +1,7 @@
 class actions {
 
     gameLogic;
+    firstStart = true;
     currentBetValue = null;
     currentBetClicked = null;
 
@@ -89,14 +90,12 @@ class actions {
         if(this.currentBetValue !== null) {
             this.gameLogic.playerSidebet213(this.currentBetValue);
         }
-        console.log(this.currentBetValue);
     }
 
     sidebetPair() {
         if(this.currentBetValue !== null) {
             this.gameLogic.playerSidebetPair(this.currentBetValue);
         }
-        console.log(this.currentBetValue);
     }
 
     revokeBet() {
@@ -115,8 +114,11 @@ class actions {
     }
 
     startGame() {
+        if(this.firstStart === true) {
+            this.clickButtons();
+            this.firstStart = false;
+        }
         this.gameLogic.startGame();
-        this.clickButtons();
         this.currentBetValue = null;
         this.currentBetClicked = null;
     }

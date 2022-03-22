@@ -13,6 +13,12 @@ class player extends person {
         return this.bet;
     }
     
+    resetBets() {
+        this.bet = 0;
+        this.sidebetPair = 0;
+        this.sidebet213 = 0;
+    }
+    
     revokeBets() {
         if (this.bet > 0) {
             this.money += this.bet;

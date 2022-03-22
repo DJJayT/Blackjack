@@ -2,6 +2,7 @@ class designLogic {
     
     static canvasWidth = 0;
     static canvasHeight = 0;
+    playerMoney = 2000;
     cardsDealer = Array();
     cardsPlayer = Array();
     valueTextDealer = "";
@@ -61,6 +62,7 @@ class designLogic {
     }
     
     addCard(card, cardLength, x, y, showCard = true, cardFromDealer = false) {
+        console.log(card);
         let symbol = this.getSymbol(card.symbol);
         let cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
         
@@ -95,6 +97,21 @@ class designLogic {
         this.addCard(card, cardLength, x, y);
     }
     
+    showMoney(playerMoney, reset = true) {
+        this.playerMoney = playerMoney;
+        let canvas = document.getElementById("gameField");
+        let ctx = canvas.getContext("2d");
+        
+        if(reset) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "left";
+        ctx.fillText(playerMoney, 5, 20);
+    }
+    
     updateTable(cardsPlayer, cardsDealer, scorePlayer, scoreDealer) {
         this.cardsPlayer = cardsPlayer; //Für Resize-Event
         this.cardsDealer = cardsDealer;
@@ -104,9 +121,12 @@ class designLogic {
         let canvas = document.getElementById("gameField");
         let ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.showMoney(this.playerMoney, false);
         
-        this.showCardsFromArray(cardsPlayer, ctx);
-        this.showCardsFromArray(cardsDealer, ctx);
+        setTimeout(function() {
+            this.showCardsFromArray(cardsPlayer, ctx);
+            this.showCardsFromArray(cardsDealer, ctx);
+        }.bind(this), 50);
         
         ctx.font = "20px Arial";
         ctx.fillStyle = "black";
@@ -149,10 +169,6 @@ class designLogic {
         $("#sidebet_pair_text").text(totalBet);
     }
     
-    showMoney(playerMoney) {
-        $("#playermoney").text(playerMoney);
-    }
-    
     startGame() {
         this.cardsDealer = Array();
         this.cardsPlayer = Array();
@@ -170,10 +186,11 @@ class designLogic {
         $("#startGame").removeClass("hidden");
         $("#mainbet").addClass("clickable");
         $(".sidebet").addClass("clickable");
+        
+        this.resetBets();
     }
     
     hideGameButtons() {
-        console.log("game Buttons weg")
         let gameButtons = $(".gameButton");
         
         gameButtons.css({"width": 0});
@@ -188,5 +205,9 @@ class designLogic {
         gameButtons.css({"width": "75px"});
         gameButtons.css({"height": "50px"});
         gameButtons.removeClass("hidden");
+    }
+    
+    setNewMoney(playerMoney) {
+        this.playerMoney = playerMoney;
     }
 }

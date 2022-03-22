@@ -3,6 +3,7 @@ class cardShoe {
     cards = Array();
     dealerCard;
     cardsPlayed = 0;
+    nextRoundShuffle = false;
 
     constructor() {
         for(let i=0; i<6; i++) {

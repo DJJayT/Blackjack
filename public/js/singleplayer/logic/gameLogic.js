@@ -23,8 +23,9 @@ class gameLogic {
         this.designLogic.addCardPlayer(card, this.player.cards.length);
         let playerValue = this.player.getCardValues();
         this.checkNextStep(playerValue);
-        console.log(card);
         this.player.createCardValueText();
+        
+        this.dealerCardCheck();
         this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
     }
     
@@ -36,15 +37,17 @@ class gameLogic {
             this.designLogic.addDealerHiddenCard(card, this.dealer.cards.length);
         }
         this.dealer.hit(card);
-        this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
         this.dealer.createCardValueText();
+        
+        this.dealerCardCheck();
+        this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
     }
     
     checkNextStep(playerValue) {
-        console.log(playerValue);
-        if (playerValue === 21) {
+        let checkValue = this.player.getCardValuesRemovedAces(playerValue);
+        if (checkValue === 21) {
             this.playerStands();
-        } else if (playerValue > 21) {
+        } else if (checkValue > 21) {
             this.playerStands();
         }
     }
@@ -57,10 +60,9 @@ class gameLogic {
     }
     
     playCardsDealer() {
-        console.log("play cards dealer");
         this.designLogic.addCardDealer(this.dealer.cards[1], this.dealer.cards.length - 1);
         this.dealer.createCardValueText();
-        while (this.dealer.getCardValues() < 17 && !(this.player.getCardValues() > 21)) {
+        while (this.dealer.getCardValuesRemovedAces() < 17 && !(this.player.getCardValuesRemovedAces() > 21)) {
             this.hitDealer();
         }
         this.dealer.createCardValueText();
@@ -69,6 +71,11 @@ class gameLogic {
     }
     
     startGame() {
+        console.log(this.player.money);
+        if (this.cardShoe.nextRoundShuffle) {
+            this.cardShoe.dealerCardPlayed();
+        }
+        
         gameLogic.gameDisplay = "";
         if (this.player.bet === 0) {
             alert("Du musst zuerst einen Haupteinsatz tätigen!");
@@ -88,7 +95,7 @@ class gameLogic {
         
         //Check 21+3
         if (this.player.play213 === true) {
-            console.log("Coming soon");
+            console.log("Cumming soon");
         }
         
     }
@@ -130,8 +137,9 @@ class gameLogic {
     }
     
     calculateWin() {
-        let playerScore = this.player.getCardValues();
-        let dealerScore = this.dealer.getCardValues();
+        let playerScore = this.player.getCardValuesRemovedAces();
+        let dealerScore = this.dealer.getCardValuesRemovedAces();
+        
         if (playerScore <= 21) { //Checks if Player busts
             if (dealerScore <= 21) { //Checks if dealer busts
                 let playerBlackjack = this.player.checkBlackjack();
@@ -162,7 +170,7 @@ class gameLogic {
                     this.player.money += this.player.bet * 2;
                     return;
                 }
-                if(dealerScore> playerScore) {
+                if (dealerScore > playerScore) {
                     gameLogic.gameDisplay = "You lost!";
                     return;
                 }
@@ -176,7 +184,18 @@ class gameLogic {
     
     gameEnd() {
         this.calculateWin();
+        this.player.resetBets();
         this.designLogic.gameEnd();
-        this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText)
+        this.designLogic.setNewMoney(this.player.money);
+        this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
+    }
+    
+    dealerCardCheck() {
+        if (!this.cardShoe.nextRoundShuffle) {
+            if (this.cardShoe.checkDealerCardPlayed()) {
+                this.cardShoe.nextRoundShuffle = true;
+                gameLogic.gameDisplay = "Card-shuffle next round!";
+            }
+        }
     }
 }
