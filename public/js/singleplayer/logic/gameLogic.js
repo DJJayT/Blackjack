@@ -45,11 +45,13 @@ class gameLogic {
     
     checkNextStep(playerValue) {
         let checkValue = this.player.getCardValuesRemovedAces(playerValue);
-        if (checkValue === 21) {
-            this.playerStands();
-        } else if (checkValue > 21) {
-            this.playerStands();
-        }
+        setTimeout(function() {
+            if (checkValue === 21) {
+                this.playerStands();
+            } else if (checkValue > 21) {
+                this.playerStands();
+            }
+        }.bind(this), 50);
     }
     
     playerStands() {
@@ -146,7 +148,7 @@ class gameLogic {
                 let dealerBlackjack = this.dealer.checkBlackjack();
                 
                 if (playerBlackjack && !dealerBlackjack) { //Blackjack checks
-                    gameLogic.gameDisplay = "You won!";
+                    gameLogic.gameDisplay = "You won! - Blackjack";
                     this.player.money += this.player.bet * 2.5;
                     return;
                 }
@@ -184,7 +186,7 @@ class gameLogic {
     
     gameEnd() {
         this.calculateWin();
-        this.player.resetBets();
+        //this.player.resetBets();
         this.designLogic.gameEnd();
         this.designLogic.setNewMoney(this.player.money);
         this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
