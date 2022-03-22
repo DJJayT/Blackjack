@@ -52,7 +52,6 @@ class designLogic {
     resizeCanvas() {
         designLogic.canvasWidth = (window.innerWidth / 100) * 80;
         designLogic.canvasHeight = (window.innerHeight / 100) * 50;
-        console.log(designLogic.canvasHeight);
         $(function () {
             let canvas = document.getElementById("gameField");
             canvas.width = designLogic.canvasWidth;

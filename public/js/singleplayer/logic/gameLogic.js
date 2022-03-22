@@ -27,7 +27,7 @@ class gameLogic {
         this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
     }
 
-    hitDealer(showCard) {
+    hitDealer(showCard = true) {
         let card = this.cardShoe.getRandomCard();
         if (showCard) {
             this.designLogic.addCardDealer(card, this.dealer.cards.length);
@@ -40,8 +40,6 @@ class gameLogic {
     }
 
     checkNextStep(playerValue) {
-        let aces = this.player.checkHowMuchAces();
-
         console.log(playerValue);
         if (playerValue === 21) {
             this.playerStands();
@@ -52,6 +50,7 @@ class gameLogic {
 
     playerStands() {
         gameLogic.gameRunning = false;
+        this.player.createCardValueText();
         this.designLogic.hideGameButtons();
         this.playCardsDealer();
     }
@@ -60,8 +59,10 @@ class gameLogic {
         this.designLogic.addCardDealer(this.dealer.cards[1], this.dealer.cards.length - 1);
         this.dealer.createCardValueText();
         while(this.dealer.getCardValues() < 17 && !(this.player.getCardValues() > 21)) {
-            this.hitDealer(true);
+            this.hitDealer();
         }
+        this.dealer.createCardValueText();
+        this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
     }
 
     startGame() {
@@ -88,7 +89,7 @@ class gameLogic {
 
     dealCards() {
         this.hitPlayer();
-        this.hitDealer(true);
+        this.hitDealer();
         this.hitPlayer();
         this.hitDealer(false);
     }
