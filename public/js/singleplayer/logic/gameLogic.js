@@ -186,7 +186,7 @@ class gameLogic {
     
     gameEnd() {
         this.calculateWin();
-        //this.player.resetBets();
+        this.player.resetBets();
         this.designLogic.gameEnd();
         this.designLogic.setNewMoney(this.player.money);
         this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
