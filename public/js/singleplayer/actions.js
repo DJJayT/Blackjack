@@ -77,7 +77,7 @@ class actions {
     }
 
     doubleButtonClicked() {
-        console.log("Double");
+        this.gameLogic.doublePlayer();
     }
 
     bet() {
@@ -118,8 +118,9 @@ class actions {
             this.clickButtons();
             this.firstStart = false;
         }
-        this.gameLogic.startGame();
-        this.currentBetValue = null;
-        this.currentBetClicked = null;
+        if(this.gameLogic.startGame()) {
+            this.currentBetValue = null;
+            this.currentBetClicked = null;
+        }
     }
 }

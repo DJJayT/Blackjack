@@ -85,4 +85,8 @@ class player extends person {
         }
         return kindOfPair;
     }
+    
+    splitCards() {
+    
+    }
 }

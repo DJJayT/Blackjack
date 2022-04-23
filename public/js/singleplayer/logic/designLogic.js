@@ -90,10 +90,13 @@ class designLogic {
         card.setDrawVariables(x, y, img, false, true);
     }
     
-    addCardPlayer(card, cardLength) {
-        let x = cardLength * 14;
-        let y = cardLength * 13 + 40;
+    addCardPlayer(card, cardLength, double) {
+        let y = cardLength * 14 + 40;
+        let x = 14;
         
+        if(double === false) {
+            x = cardLength * 14;
+        }
         this.addCard(card, cardLength, x, y);
     }
     

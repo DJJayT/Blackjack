@@ -17,10 +17,10 @@ class gameLogic {
         this.dealer = new dealer();
     }
     
-    hitPlayer() {
+    hitPlayer(double = false) {
         let card = this.cardShoe.getRandomCard();
         this.player.hit(card);
-        this.designLogic.addCardPlayer(card, this.player.cards.length);
+        this.designLogic.addCardPlayer(card, this.player.cards.length, double);
         let playerValue = this.player.getCardValues();
         this.checkNextStep(playerValue);
         this.player.createCardValueText();
@@ -44,10 +44,10 @@ class gameLogic {
     }
     
     doublePlayer() {
-        if(this.player.money >= this.player.bet && this.player.checkDoublePossible()) {
+        if (this.player.money >= this.player.bet && this.player.checkDoublePossible()) {
             this.player.money -= this.player.bet;
             this.player.bet += this.player.bet;
-            this.hitPlayer();
+            this.hitPlayer(true);
             this.playerStands();
         } else {
             alert("Dein Einsatz reicht dafür nicht aus!");
@@ -60,7 +60,7 @@ class gameLogic {
     
     checkNextStep(playerValue) {
         let checkValue = this.player.getCardValuesRemovedAces(playerValue);
-        setTimeout(function() {
+        setTimeout(function () {
             if (checkValue === 21) {
                 this.playerStands();
             } else if (checkValue > 21) {
@@ -96,7 +96,7 @@ class gameLogic {
         gameLogic.gameDisplay = "";
         if (this.player.bet === 0) {
             alert("Du musst zuerst einen Haupteinsatz tätigen!");
-            return;
+            return false;
         }
         this.player.cards = Array();
         this.dealer.cards = Array();
@@ -115,6 +115,8 @@ class gameLogic {
             console.log("Cumming soon");
         }
         
+        
+        return true;
     }
     
     dealCards() {
