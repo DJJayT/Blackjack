@@ -43,6 +43,21 @@ class gameLogic {
         this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText);
     }
     
+    doublePlayer() {
+        if(this.player.money >= this.player.bet && this.player.checkDoublePossible()) {
+            this.player.money -= this.player.bet;
+            this.player.bet += this.player.bet;
+            this.hitPlayer();
+            this.playerStands();
+        } else {
+            alert("Dein Einsatz reicht dafür nicht aus!");
+        }
+    }
+    
+    showButtons() {
+    
+    }
+    
     checkNextStep(playerValue) {
         let checkValue = this.player.getCardValuesRemovedAces(playerValue);
         setTimeout(function() {

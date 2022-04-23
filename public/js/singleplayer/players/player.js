@@ -4,6 +4,9 @@ class player extends person {
     sidebet213 = 0;
     sidebetPair = 0;
     betsLastRound = Array(0, 0, 0);
+    split = false;
+    cardsSplitHand = Array();
+    splitStandFirstHand = false;
     
     addBet(betValue) {
         if (this.money >= betValue) {
@@ -38,6 +41,8 @@ class player extends person {
         super.newRound();
         this.betsLastRound = [this.bet, this.sidebetPair, this.sidebet213];
         this.bet = 0;
+        this.double = false;
+        this.split = false;
     }
     
     addSidebet213(betValue) {
@@ -55,6 +60,14 @@ class player extends person {
             
         }
         return this.sidebetPair;
+    }
+    
+    checkDoublePossible() {
+        return this.cards.length === 2;
+    }
+    
+    checkSplitPossible() {
+        return this.cards[0].value === this.cards[1].value;
     }
     
     checkPairHit() {
