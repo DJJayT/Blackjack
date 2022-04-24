@@ -43,6 +43,9 @@ class actions {
             $("#sidebet_213").on("click", function () {
                 self.sidebet213();
             });
+            $("#repeat2x").on("click", function() {
+                self.sameBetOrDouble();
+            });
         });
     }
 
@@ -73,7 +76,7 @@ class actions {
     }
 
     splitButtonClicked() {
-        console.log("Split");
+        this.gameLogic.splitPlayerCards();
     }
 
     doubleButtonClicked() {
@@ -122,5 +125,9 @@ class actions {
             this.currentBetValue = null;
             this.currentBetClicked = null;
         }
+    }
+    
+    sameBetOrDouble() {
+        this.gameLogic.betSameAmountOrDouble();
     }
 }

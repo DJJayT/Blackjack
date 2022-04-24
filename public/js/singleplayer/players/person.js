@@ -19,11 +19,21 @@ class person {
         return value;
     }
     
-    getCardValuesRemovedAces(value = null) {
+    getCardValuesRemovedAces(value = null, splitted = false) {
         if(value === null) {
-            value = this.getCardValues();
+            if(this instanceof player) {
+                value = this.getCardValues(splitted);
+            } else {
+                value = this.getCardValues();
+            }
         }
-        let aces = this.checkHowMuchAces();
+        let aces;
+        
+        if(this instanceof player) {
+            aces = this.checkHowMuchAces(splitted);
+        } else {
+            aces = this.checkHowMuchAces();
+        }
         while (value > 21 && aces > 0) {
             if (aces >= 1) {
                 value -= 10;
@@ -43,18 +53,27 @@ class person {
         return aces;
     }
     
-    createCardValueText() {
-        let value = this.getCardValues()
-        let aces = this.checkHowMuchAces();
-        this.valueText = value;
+    createCardValueText(splitted = false) {
+        let value;
+        let aces;
+        if(this instanceof player) {
+            value = this.getCardValues(splitted)
+            aces = this.checkHowMuchAces(splitted);
+        } else {
+            value = this.getCardValues();
+            aces = this.checkHowMuchAces();
+        }
+        
+        let valueText = value;
         
         if(this instanceof dealer && gameLogic.gameRunning) {
+            this.valueText = valueText;
             return;
         }
         
         if (value < 21 && aces >= 1 && gameLogic.gameRunning) {
             let secondValue = value - 10;
-            this.valueText = secondValue + "/" + value;
+            valueText = secondValue + "/" + value;
             
         } else if (value > 21 && aces > 0) {
             let secondValue = value - (aces * 10);
@@ -68,10 +87,16 @@ class person {
             }
             
             if (higherValue !== secondValue && gameLogic.gameRunning) {
-                this.valueText = secondValue + "/" + higherValue;
+                valueText = secondValue + "/" + higherValue;
             } else {
-                this.valueText = higherValue;
+                valueText = higherValue;
             }
+        }
+        
+        if(this instanceof player && splitted === true) {
+            this.valueTextSplitted = valueText;
+        } else {
+            this.valueText = valueText;
         }
     }
     

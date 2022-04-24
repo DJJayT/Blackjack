@@ -21,7 +21,6 @@ class cardShoe {
         do {
             random = Math.floor(Math.random() * 312);
         } while(this.cards[random].played === true);
-        console.log(random);
 
         this.cardsPlayed++;
         this.cards[random].played = true;

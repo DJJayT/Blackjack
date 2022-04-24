@@ -5,6 +5,9 @@ class designLogic {
     playerMoney = 2000;
     cardsDealer = Array();
     cardsPlayer = Array();
+    splittedCardsPlayer = Array();
+    valueScoreSplitted = "";
+    split = false;
     valueTextDealer = "";
     valueTextPlayer = "";
     
@@ -57,12 +60,11 @@ class designLogic {
             let canvas = document.getElementById("gameField");
             canvas.width = designLogic.canvasWidth;
             canvas.height = designLogic.canvasHeight;
-            this.updateTable(this.cardsPlayer, this.cardsDealer, this.valueTextPlayer, this.valueTextDealer);
+            this.updateTable(this.cardsPlayer, this.cardsDealer, this.valueTextPlayer, this.valueTextDealer, this.splittedCardsPlayer, this.valueScoreSplitted);
         }.bind(this));
     }
     
     addCard(card, cardLength, x, y, showCard = true, cardFromDealer = false) {
-        console.log(card);
         let symbol = this.getSymbol(card.symbol);
         let cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
         
@@ -90,13 +92,23 @@ class designLogic {
         card.setDrawVariables(x, y, img, false, true);
     }
     
-    addCardPlayer(card, cardLength, double) {
+    addCardPlayer(card, cardLength, double, split, splitStandFirstHand, cardLengthSplit) {
         let y = cardLength * 14 + 40;
         let x = 14;
         
-        if(double === false) {
+        if(double === false && split === false) {
             x = cardLength * 14;
         }
+        
+        if(split === true) {
+            if(splitStandFirstHand === false) {
+                x = cardLength * 14 + 56;
+            } else {
+                x = cardLengthSplit * 14 - 49;
+                y = cardLengthSplit * 14 + 40;
+            }
+        }
+        
         this.addCard(card, cardLength, x, y);
     }
     
@@ -115,11 +127,13 @@ class designLogic {
         ctx.fillText(playerMoney, 5, 20);
     }
     
-    updateTable(cardsPlayer, cardsDealer, scorePlayer, scoreDealer) {
+    updateTable(cardsPlayer, cardsDealer, scorePlayer, scoreDealer, cardsSplitted = Array(), scoreSplitted = "") {
         this.cardsPlayer = cardsPlayer; //Für Resize-Event
         this.cardsDealer = cardsDealer;
         this.valueTextPlayer = scorePlayer;
         this.valueTextDealer = scoreDealer;
+        this.splittedCardsPlayer = cardsSplitted;
+        this.valueScoreSplitted = scoreSplitted;
         
         let canvas = document.getElementById("gameField");
         let ctx = canvas.getContext("2d");
@@ -129,13 +143,21 @@ class designLogic {
         setTimeout(function() {
             this.showCardsFromArray(cardsPlayer, ctx);
             this.showCardsFromArray(cardsDealer, ctx);
+            if(cardsSplitted.length !== 0) {
+                this.showCardsFromArray(cardsSplitted, ctx);
+            }
         }.bind(this), 50);
         
         ctx.font = "20px Arial";
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
-        ctx.fillText(scorePlayer, designLogic.canvasWidth / 2, designLogic.canvasHeight - 20);
         ctx.fillText(scoreDealer, designLogic.canvasWidth / 2, 30);
+        if(cardsSplitted.length === 0) {
+            ctx.fillText(scorePlayer, designLogic.canvasWidth / 2, designLogic.canvasHeight - 20);
+        } else {
+            ctx.fillText(scorePlayer, designLogic.canvasWidth / 2 + 50, designLogic.canvasHeight - 20);
+            ctx.fillText(scoreSplitted, designLogic.canvasWidth / 2 - 50, designLogic.canvasHeight - 20);
+        }
         
         ctx.fillText(gameLogic.gameDisplay, designLogic.canvasWidth / 2, designLogic.canvasHeight / 2);
     }
@@ -213,4 +235,10 @@ class designLogic {
     setNewMoney(playerMoney) {
         this.playerMoney = playerMoney;
     }
+    
+    setSplitBet(playerBet) {
+        playerBet /= 2;
+        $("#mainbet_text").text(playerBet + "/" + playerBet);
+    }
+    
 }
