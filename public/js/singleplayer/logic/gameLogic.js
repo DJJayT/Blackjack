@@ -88,7 +88,13 @@ class gameLogic {
     
     
     checkNextStep(playerValue) {
-        let checkValue = this.player.getCardValuesRemovedAces(playerValue);
+        let checkValue;
+        if(this.player.split === true && this.player.splitStandFirstHand === true) {
+            checkValue = this.player.getCardValuesRemovedAces(playerValue, true);
+        } else {
+            checkValue = this.player.getCardValuesRemovedAces(playerValue);
+        }
+        
         setTimeout(function () {
             if (checkValue === 21) {
                 this.playerStands();
