@@ -69,6 +69,7 @@ class gameLogic {
         
         if (this.player.money >= this.player.bet && splitPossible) {
             this.player.money -= this.player.bet;
+            this.player.bet += this.player.bet;
             this.designLogic.setNewMoney(this.player.money);
             this.designLogic.setSplitBet(this.player.bet);
             
