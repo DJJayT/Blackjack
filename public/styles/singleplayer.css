@@ -67,6 +67,11 @@
     margin-left: 3px;
 }
 
+.chip:not(.sidebet) {
+    vertical-align: center;
+    line-height: 75px;
+}
+
 .clickable {
     cursor: pointer;
     transition: all 200ms ease-in-out,

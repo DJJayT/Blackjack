@@ -155,4 +155,13 @@ class player extends person {
         }
         return aces;
     }
+    
+    checkBlackjack() {
+        if(this.split) {
+            return false;
+        }
+        
+        let value = this.getCardValues(false);
+        return (value === 21 && this.cards.length === 2);
+    }
 }
