@@ -1,13 +1,13 @@
 class gameLogic {
     
-    static gameRunning = false;
-    static gameDisplay = "";
+    static gameRunning = false; //Boolean ob das Spiel läuft oder nicht
+    static gameDisplay = ""; //Text des Displays in der MItte des Spielfelds
     designLogic;
     cardShoe;
     player;
     dealer;
-    playPerfectPair = false;
-    play213 = false;
+    playPerfectPair = false; //Speichert ob Perfect-Pair Sidebet gespielt wird
+    play213 = false; //Speichert ob 21+3 Sidebet gespielt wird
     
     
     constructor() {
@@ -17,6 +17,11 @@ class gameLogic {
         this.dealer = new dealer();
     }
     
+    /***
+     * Holt eine neue zufällige, nicht gespielte Karte und lässt den Spieler diese ziehen.
+     * Zudem wird bei Double Position der Karte geändert
+     * @param double
+     */
     hitPlayer(double = false) {
         let card = this.cardShoe.getRandomCard();
         this.player.hit(card);
@@ -29,6 +34,12 @@ class gameLogic {
         this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText, this.player.cardsSplitHand, this.player.valueTextSplitted);
     }
     
+    /***
+     * Holt eine neue zufällige, nicht gespielte Karte und lässt den Dealer diese ziehen.
+     * Zudem wird gesagt ob Karte gezeigt wird (normal ziehen) oder nicht (2.
+     * Karte beim Start)
+     * @param showCard
+     */
     hitDealer(showCard = true) {
         let card = this.cardShoe.getRandomCard();
         if (showCard) {
@@ -43,6 +54,9 @@ class gameLogic {
         this.designLogic.updateTable(this.player.cards, this.dealer.cards, this.player.valueText, this.dealer.valueText, this.player.cardsSplitHand, this.player.valueTextSplitted);
     }
     
+    /***
+     * Lässt den Spieler doublen, sofern möglich und genug Geld vorhanden.
+     */
     doublePlayer() {
         let doublePossible = this.player.checkDoublePossible()
         
@@ -59,6 +73,9 @@ class gameLogic {
         }
     }
     
+    /***
+     * Lässt den Spieler die Karten splitten, sofern möglich und genug Geld vorhanden
+     */
     splitPlayerCards() {
         if(this.player.split === true) {
             alert("Du kannst nicht 2 mal splitten!");
@@ -69,7 +86,6 @@ class gameLogic {
         
         if (this.player.money >= this.player.bet && splitPossible) {
             this.player.money -= this.player.bet;
-            this.player.bet += this.player.bet;
             this.designLogic.setNewMoney(this.player.money);
             this.designLogic.setSplitBet(this.player.bet);
             
@@ -87,7 +103,10 @@ class gameLogic {
         }
     }
     
-    
+    /***
+     * Schaut ob der Dealer noch eine Karte ziehen kann oder nicht
+     * @param playerValue
+     */
     checkNextStep(playerValue) {
         let checkValue;
         if(this.player.split === true && this.player.splitStandFirstHand === true) {
@@ -105,6 +124,11 @@ class gameLogic {
         }.bind(this), 50);
     }
     
+    /***
+     * Lässt den Spieler stehen.
+     * Falls kein Split kann Dealer daraufhin ziehen.
+     * Beendet zudem bei letzter Spieler-Aktion
+     */
     playerStands() {
         if(this.player.split === true) {
             if(this.player.splitStandFirstHand === false) {
@@ -120,6 +144,9 @@ class gameLogic {
         this.playCardsDealer();
     }
     
+    /***
+     * Spielt die Karten des Dealers nach den Blackjack Regeln.
+     */
     playCardsDealer() {
         this.designLogic.addCardDealer(this.dealer.cards[1], this.dealer.cards.length - 1);
         this.dealer.createCardValueText();
@@ -137,6 +164,10 @@ class gameLogic {
         this.gameEnd();
     }
     
+    /***
+     * Startet das Spiel und setzt einige Variablen
+     * @returns {boolean}
+     */
     startGame() {
         if (this.cardShoe.nextRoundShuffle) {
             this.cardShoe.dealerCardPlayed();
@@ -162,10 +193,12 @@ class gameLogic {
             console.log("Cumming soon");
         }
         
-        
         return true;
     }
     
+    /***
+     * Zieht die ersten 2 Karten für Dealer und Spieler
+     */
     dealCards() {
         this.hitPlayer();
         this.hitDealer();
@@ -173,6 +206,10 @@ class gameLogic {
         this.hitDealer(false);
     }
     
+    /***
+     * Funktion wo den Spieler bei genug Geld den entsprechenden Einsatz setzen lässt
+     * @param betValue
+     */
     playerBet(betValue) {
         if(betValue > this.player.money) {
             alert("Dein Guthaben reicht für diesen Einsatz nicht!");
@@ -185,6 +222,10 @@ class gameLogic {
         }
     }
     
+    /***
+     * Setzt die Sidebet für 21+3 bei genug Geld
+     * @param betValue
+     */
     playerSidebet213(betValue) {
         if(betValue > this.player.money) {
             alert("Dein Guthaben reicht für diesen Einsatz nicht!");
@@ -201,6 +242,10 @@ class gameLogic {
         //Not working atm
     }
     
+    /***
+     * Setzt die Sidebet für Perfect-Pair bei genug Geld
+     * @param betValue
+     */
     playerSidebetPair(betValue) {
         if(betValue > this.player.money) {
             alert("Dein Guthaben reicht für diesen Einsatz nicht!");
@@ -216,12 +261,20 @@ class gameLogic {
         //PerfectPair linker Side Bet
     }
     
+    /***
+     * Nimmt die Einsätze wieder zurück
+     */
     revokeBet() {
         this.player.revokeBets();
         this.designLogic.resetBets();
         this.designLogic.showMoney(this.player.money);
     }
     
+    /***
+     * Berechnet ob Spieler gewonnen hat oder nicht
+     * @param secondLoop
+     * @returns {string}
+     */
     calculateWin(secondLoop = false) {
         let playerScore;
         if(secondLoop === true) {
@@ -274,6 +327,11 @@ class gameLogic {
         }
     }
     
+    /***
+     * Funktion um das Spiel zu beenden.
+     * Rechnet Gewinn aus, zeigt neues Geld und beendet das Spiel.
+     * Setzt Einsätze des Spielers und Karten aller Teilnehmer zurück.
+     */
     gameEnd() {
         this.calculateWin();
         this.designLogic.gameEnd();
@@ -284,6 +342,10 @@ class gameLogic {
         this.player.resetBets();
     }
     
+    /***
+     * Prüft ob Dealerkarte (Karte im Kartenstapel nach der gemischt wird)
+     * gespielt wurde.
+     */
     dealerCardCheck() {
         if (!this.cardShoe.nextRoundShuffle) {
             if (this.cardShoe.checkDealerCardPlayed()) {
@@ -293,6 +355,10 @@ class gameLogic {
         }
     }
     
+    /***
+     * Lässt den Spieler, sofern kein Einsatz vorhanden, seinen alten
+     * Einsatz spielen oder falls einer vorhanden verdoppelt sich dieser.
+     */
     betSameAmountOrDouble() {
         if((this.player.bet === 0 && this.player.sidebet213 === 0) && this.player.sidebetPair === 0) {
             let mainBet = this.player.betsLastRound[0];

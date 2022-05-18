@@ -4,13 +4,13 @@ class card {
     symbol; //Welches Symbol
     value; //Welchen Wert
     ace = false; //Ob Ass oder nicht
-    played = false;
+    played = false; //Bereits gespielt oder nicht
 
-    x;
-    y;
-    imageObject = null;
-    showCard;
-    cardFromDealer;
+    x; //X-Koordinate für Canvas-Zeichnung
+    y; //Y-Koordinate für Canvas Zeichnungen
+    imageObject = null; //Bildobjekt durch welches die Karte angezeigt werden kann
+    showCard; //Bool, ob die Karte gezeigt werden soll oder nicht (für Dealer 2. Karte)
+    cardFromDealer; //Bool, ob die Karte vom Dealer ist oder nicht
 
     constructor(color, symbol) {
         this.color = color;
@@ -25,7 +25,15 @@ class card {
             this.value = 11;
         }
     }
-
+    
+    /***
+     * Setzt die Werte welche für das Frontend Relevant sind
+     * @param x
+     * @param y
+     * @param imageObject
+     * @param showCard
+     * @param cardFromDealer
+     */
     setDrawVariables(x, y, imageObject = null, showCard, cardFromDealer) {
         this.x = x;
         this.y = y;
@@ -37,6 +45,11 @@ class card {
         this.cardFromDealer = cardFromDealer;
     }
     
+    /***
+     * Holt sich X-Wert anhand der Koordinaten und
+     * ob Karte vom Dealer oder nicht.
+     * @returns {number}
+     */
     getX() {
         if(this.cardFromDealer === false) {
             return designLogic.canvasWidth/2 + this.x - 40;
@@ -45,6 +58,11 @@ class card {
         }
     }
     
+    /***
+     * Holt sich Y-Wert anhand der Koordinaten und
+     * ob Karte vom Dealer oder nicht.
+     * @returns {number}
+     */
     getY() {
         if(this.cardFromDealer === false) {
             return designLogic.canvasHeight - this.y - 60;

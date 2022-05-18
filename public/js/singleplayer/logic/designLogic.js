@@ -1,18 +1,21 @@
 class designLogic {
     
-    static canvasWidth = 0;
-    static canvasHeight = 0;
-    playerMoney = 2000;
-    cardsDealer = Array();
-    cardsPlayer = Array();
-    splittedCardsPlayer = Array();
-    valueScoreSplitted = "";
-    split = false;
-    valueTextDealer = "";
-    valueTextPlayer = "";
+    static canvasWidth = 0; //Breite des Canvas
+    static canvasHeight = 0; //Höhe des Canvas
+    playerMoney = 2000; //Anzahl Geld vom Spieler
+    cardsDealer = Array(); //Die gezogenen Karten des Dealers
+    cardsPlayer = Array(); //Die gezogenen Karten des Spielers
+    splittedCardsPlayer = Array(); //Die gezogenen Karten des Spielers auf 2. Hand (gesplittete Hand)
+    valueScoreSplitted = ""; //Kartenwert gesplittete Hand
+    split = false; //Ist split getätigt worden?
+    valueTextDealer = ""; //Kartenwert Dealer
+    valueTextPlayer = ""; //Kartenwert Spieler
     
-    colorNames = ["Herz", "Karo", "Kreuz", "Pik"];
+    colorNames = ["Herz", "Karo", "Kreuz", "Pik"]; //Namen der Karten um ID einem Bild zuzuweisen
     
+    /***
+     * Setzt Funktionen auf bestimmte Events (Klick, Resize) um das Spiel spielen zu können
+     */
     constructor() {
         this.resizeCanvas();
         $(window).resize(function () {
@@ -25,6 +28,11 @@ class designLogic {
         }.bind(this));
     }
     
+    /***
+     * Gibt das Bildsymbol passend zur ID
+     * @param cardSymbol
+     * @returns {string|int}
+     */
     getSymbol(cardSymbol) {
         switch (cardSymbol) {
             case 0:
@@ -40,6 +48,9 @@ class designLogic {
         }
     }
     
+    /***
+     * Lässt die Bilder alle Preloaden, sodass diese direkt genutzt werden können
+     */
     loadCards() {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 13; j++) {
@@ -53,6 +64,9 @@ class designLogic {
         }
     }
     
+    /***
+     * Zeichnet das Canvas neu anhand der Größe des geänderten Fensters
+     */
     resizeCanvas() {
         designLogic.canvasWidth = (window.innerWidth / 100) * 80;
         designLogic.canvasHeight = (window.innerHeight / 100) * 50;
@@ -64,6 +78,15 @@ class designLogic {
         }.bind(this));
     }
     
+    /***
+     * Fügt eine Karte dem Spielfeld anhand der Parameter hinzu
+     * @param card
+     * @param cardLength
+     * @param x
+     * @param y
+     * @param showCard
+     * @param cardFromDealer
+     */
     addCard(card, cardLength, x, y, showCard = true, cardFromDealer = false) {
         let symbol = this.getSymbol(card.symbol);
         let cardImg = symbol + "_" + this.colorNames[card.color] + ".png";
@@ -74,6 +97,12 @@ class designLogic {
         card.setDrawVariables(x, y, img, showCard, cardFromDealer);
     }
     
+    /***
+     * Fügt dem Dealer eine Karte hinzu und gibt der Karte die Zeichnungsparameter
+     * @param card
+     * @param cardLength
+     * @param showCard
+     */
     addCardDealer(card, cardLength, showCard = true) {
         let x = cardLength * 15;
         let y = 40;
@@ -81,6 +110,11 @@ class designLogic {
         this.addCard(card, cardLength, x, y, showCard, true);
     }
     
+    /***
+     * Fügt dem Dealer die versteckte Karte hinzu
+     * @param card
+     * @param cardLength
+     */
     addDealerHiddenCard(card, cardLength) {
         let x = cardLength * 15;
         let y = 40;
@@ -92,6 +126,15 @@ class designLogic {
         card.setDrawVariables(x, y, img, false, true);
     }
     
+    /***
+     * Fügt dem Spieler eine Karte hinzu und gibt der Karte die Zeichnungsparameter
+     * @param card
+     * @param cardLength
+     * @param double
+     * @param split
+     * @param splitStandFirstHand
+     * @param cardLengthSplit
+     */
     addCardPlayer(card, cardLength, double, split, splitStandFirstHand, cardLengthSplit) {
         let y = cardLength * 14 + 40;
         let x = 14;
@@ -112,6 +155,11 @@ class designLogic {
         this.addCard(card, cardLength, x, y);
     }
     
+    /***
+     * Lässt das Geld des Spielers auf dem Spielfeld anzeigen
+     * @param playerMoney
+     * @param reset
+     */
     showMoney(playerMoney, reset = true) {
         this.playerMoney = playerMoney;
         let canvas = document.getElementById("gameField");
@@ -127,6 +175,15 @@ class designLogic {
         ctx.fillText(playerMoney, 5, 20);
     }
     
+    /***
+     * Zeichnet den ganzen Tisch einmal neu mit den gegebene Parametern wie den Karten
+     * @param cardsPlayer
+     * @param cardsDealer
+     * @param scorePlayer
+     * @param scoreDealer
+     * @param cardsSplitted
+     * @param scoreSplitted
+     */
     updateTable(cardsPlayer, cardsDealer, scorePlayer, scoreDealer, cardsSplitted = Array(), scoreSplitted = "") {
         this.cardsPlayer = cardsPlayer; //Für Resize-Event
         this.cardsDealer = cardsDealer;
@@ -162,6 +219,11 @@ class designLogic {
         ctx.fillText(gameLogic.gameDisplay, designLogic.canvasWidth / 2, designLogic.canvasHeight / 2);
     }
     
+    /***
+     * Zeichnet alle Karten anhand des gegebenen Arrays
+     * @param cards
+     * @param ctx
+     */
     showCardsFromArray(cards, ctx) {
         let height = designLogic.canvasHeight;
         let width = designLogic.canvasWidth;
@@ -176,24 +238,42 @@ class designLogic {
         }
     }
     
+    /***
+     * Setzt die Zahl der Einsatzchips auf 0
+     */
     resetBets() {
         $("#mainbet_text").text(0);
         $("#sidebet_213_text").text(0);
         $("#sidebet_pair_text").text(0);
     }
     
+    /***
+     * Zeigt den Einsatz auf dem Haupteinsatz Chip
+     * @param totalBet
+     */
     showBet(totalBet) {
         $("#mainbet_text").text(totalBet);
     }
     
+    /***
+     * Zeigt den Einsatz auf dem 21+3 Sidebet
+     * @param totalBet
+     */
     showSidebet213(totalBet) {
         $("#sidebet_213_text").text(totalBet);
     }
     
+    /***
+     * Zeigt den Einsatz auf dem Perfect-Pair Sidebet
+     * @param totalBet
+     */
     showSidebetPair(totalBet) {
         $("#sidebet_pair_text").text(totalBet);
     }
     
+    /***
+     * Funktion um das Spiel Design-seitig zu starten (Buttons deaktivieren etc.)
+     */
     startGame() {
         this.cardsDealer = Array();
         this.cardsPlayer = Array();
@@ -206,6 +286,9 @@ class designLogic {
         this.showGameButtons();
     }
     
+    /***
+     * Funktion um das Spiel Design-seitig zu beenden (Buttons wieder aktivieren etc.)
+     */
     gameEnd() {
         $("#chips").removeClass("hidden");
         $("#startGame").removeClass("hidden");
@@ -215,6 +298,9 @@ class designLogic {
         this.resetBets();
     }
     
+    /***
+     * Versteckt die Buttons, welche zum Spielen benutzt werden
+     */
     hideGameButtons() {
         let gameButtons = $(".gameButton");
         
@@ -224,6 +310,9 @@ class designLogic {
         
     }
     
+    /***
+     * Zeigt die Buttons, welche zum Spielen benutzt werden
+     */
     showGameButtons() {
         let gameButtons = $(".gameButton");
         
@@ -232,12 +321,19 @@ class designLogic {
         gameButtons.removeClass("hidden");
     }
     
+    /***
+     * Setzt das Design-Spielerguthaben auf das tatsächliche momentane Spielerguthaben
+     * @param playerMoney
+     */
     setNewMoney(playerMoney) {
         this.playerMoney = playerMoney;
     }
     
+    /***
+     * Setzt den Einsatz nochmal nach dem Split um
+     * @param playerBet
+     */
     setSplitBet(playerBet) {
-        playerBet /= 2;
         $("#mainbet_text").text(playerBet + "/" + playerBet);
     }
     

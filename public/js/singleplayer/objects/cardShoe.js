@@ -1,9 +1,9 @@
 class cardShoe {
 
-    cards = Array();
-    dealerCard;
-    cardsPlayed = 0;
-    nextRoundShuffle = false;
+    cards = Array(); //Array mit allen im Spiel vorhandenen Karten
+    dealerCard; //Wert wann die Dealer-Card gespielt wird
+    cardsPlayed = 0; //Wert wie viele Karten gespielt wurden
+    nextRoundShuffle = false; //Bool ob Karten neu gemischt werden
 
     constructor() {
         for(let i=0; i<6; i++) {
@@ -15,7 +15,11 @@ class cardShoe {
         }
         this.dealerCard = Math.floor(Math.random() * (250-208) + 208);
     }
-
+    
+    /***
+     * Gibt eine zufällige, nicht gespielte Karte zurück
+     * @returns {card}
+     */
     getRandomCard() {
         let random;
         do {
@@ -26,7 +30,10 @@ class cardShoe {
         this.cards[random].played = true;
         return this.cards[random];
     }
-
+    
+    /***
+     * Mischt die Karten neu durch
+     */
     dealerCardPlayed() {
         this.cards.forEach(function(card) {
             card.played = false;
@@ -34,7 +41,11 @@ class cardShoe {
         this.dealerCard = Math.floor(Math.random() * (250-208) + 208);
         this.cardsPlayed = 0;
     }
-
+    
+    /***
+     * Gibt zurück ob Dealer-Karte gespielt wurde.
+     * @returns {boolean}
+     */
     checkDealerCardPlayed() {
         return (this.cardsPlayed === this.dealerCard);
     }

@@ -3,14 +3,25 @@ class person {
     cards = Array();
     valueText;
     
+    /***
+     * Fügt Karte der eigenen Hand hinzu
+     * @param randomCard
+     */
     hit(randomCard) {
         this.cards.push(randomCard);
     }
     
+    /***
+     * Leert die Hand bei neuer Runde
+     */
     newRound() {
         this.cards = Array();
     }
     
+    /***
+     * Rechnet alle Kartenwerte der Karten auf der Hand zusammen
+     * @returns {number}
+     */
     getCardValues() {
         let value = 0;
         this.cards.forEach(function (card) {
@@ -19,6 +30,12 @@ class person {
         return value;
     }
     
+    /***
+     * Rechnet alle Kartenwerte zusammen und falls über 21 zählt die Asse und entfernt jeweils 10 vom Wert
+     * @param value
+     * @param splitted
+     * @returns {number}
+     */
     getCardValuesRemovedAces(value = null, splitted = false) {
         if(value === null) {
             if(this instanceof player) {
@@ -43,6 +60,10 @@ class person {
         return value;
     }
     
+    /***
+     * Zählt die Asse auf der Hand
+     * @returns {number}
+     */
     checkHowMuchAces() {
         let aces = 0;
         this.cards.forEach(function (card) {
@@ -53,6 +74,10 @@ class person {
         return aces;
     }
     
+    /***
+     * Erstellt den Kartenwerttext abhängig von Assen
+     * @param splitted
+     */
     createCardValueText(splitted = false) {
         let value;
         let aces;
@@ -100,6 +125,10 @@ class person {
         }
     }
     
+    /***
+     * Schaut ob Blackjack vorhanden ist
+     * @returns {boolean}
+     */
     checkBlackjack() {
         let value = this.getCardValues();
         return (value === 21 && this.cards.length === 2);
