@@ -185,15 +185,66 @@ class gameLogic {
         
         //Check Perfect Pair
         if (this.playPerfectPair === true) {
-            console.log(this.player.checkPairHit());
+            let sidebetValue = this.player.checkPairHit();
+            if(sidebetValue !== "No hits") {
+                this.checkSidebetPerfectPairPayout(sidebetValue);
+            } else {
+                this.designLogic.showSidebetPair(0);
+            }
         }
         
         //Check 21+3
-        if (this.player.play213 === true) {
-            console.log("Cumming soon");
+        if (this.play213 === true) {
+            let sidebetValue = this.player.check213Hit(this.dealer.cards[0]);
+            
+            if(sidebetValue !== "No hits") {
+                this.checkSidebet213Payout(sidebetValue);
+            } else {
+                this.designLogic.showSidebet213(0);
+            }
         }
         
         return true;
+    }
+    
+    /***
+     * Prüft Auszahlung der Sidebet 21+3
+     */
+    checkSidebet213Payout(sidebetValue) {
+        let win;
+        if(sidebetValue === "SuitedTrips") {
+            win = this.player.bet * 100;
+        } else if(sidebetValue === "StraightFlush") {
+            win = this.player.bet * 40;
+        } else if(sidebetValue === "Trips") {
+            win = this.player.bet * 30;
+        } else if(sidebetValue === "Straight") {
+            win = this.player.bet * 10;
+        } else if(sidebetValue === "Flush") {
+            win = this.player.bet * 5;
+        } else {
+            win = 0;
+        }
+        this.designLogic.showSidebetPair(win);
+        this.player.money += win;
+    }
+    
+    /***
+     * Prüft Auszahlung der Sidebet PerfectPair
+     */
+    checkSidebetPerfectPairPayout(pair) {
+        let win;
+        if(pair === "PerfectPair") {
+            win = this.player.sidebetPair * 6;
+        } else if(pair === "ColoredPair") {
+            win = this.player.sidebetPair * 12;
+        } else if(pair === "NormalPair") {
+            win = this.player.sidebetPair * 25;
+        } else {
+            win = 0;
+        }
+        this.designLogic.showSidebetPair(win);
+        this.player.money += win;
     }
     
     /***
@@ -238,8 +289,6 @@ class gameLogic {
             this.designLogic.showMoney(this.player.money);
             this.play213 = true;
         }
-        //21+3 rechter Side Bet
-        //Not working atm
     }
     
     /***
@@ -266,6 +315,8 @@ class gameLogic {
      */
     revokeBet() {
         this.player.revokeBets();
+        this.play213 = false;
+        this.playPerfectPair = false;
         this.designLogic.resetBets();
         this.designLogic.showMoney(this.player.money);
     }

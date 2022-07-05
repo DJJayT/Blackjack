@@ -141,6 +141,44 @@ class player extends person {
     }
     
     /***
+     * Check ob die 21+3 Sidebet getroffen wurde
+     * @param dealerCard
+     */
+    check213Hit(dealerCard) {
+        let kindOf213;
+        let checkCards = [this.cards[0], this.cards[1], dealerCard].sort(function(a,b) {
+            return a.symbol - b.symbol;
+        });
+        
+        if((checkCards[0].symbol === checkCards[1].symbol &&
+            checkCards[1].symbol === checkCards[2].symbol) &&
+            (checkCards[0].color === checkCards[1].color &&
+            checkCards[1].color === checkCards[2].color)
+        ) {
+            kindOf213 = "SuitedTrips";
+            
+        } else if((checkCards[0].color === checkCards[1].color &&
+            checkCards[1].color === checkCards[2].color) &&
+        (checkCards[0].symbol === checkCards[1].symbol + 1 &&
+            checkCards[1].symbol === checkCards[2].symbol + 1)) {
+            kindOf213 = "StraightFlush";
+            
+        } else if(checkCards[0].symbol === checkCards[1].symbol && checkCards[1].symbol === checkCards[2].symbol) {
+            kindOf213 = "Trips";
+            
+        } else if(checkCards[0].symbol === checkCards[1].symbol + 1 && checkCards[1].symbol === checkCards[2].symbol + 1) {
+            kindOf213 = "Straight";
+            
+        } else if(checkCards[0].color === checkCards[1].color && checkCards[1].color === checkCards[2].color) {
+            kindOf213 = "Flush";
+        } else {
+            kindOf213 = "No hits";
+        }
+        
+        return kindOf213;
+    }
+    
+    /***
      * Splittet die Karten und packt die 2. Karte in den 2. Array
      */
     splitCards() {
